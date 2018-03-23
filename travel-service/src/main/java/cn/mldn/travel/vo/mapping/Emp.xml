@@ -9,4 +9,5 @@
 	<select id="findAllManager" resultType="Emp">
 		select eid,lid,ename from emp where eid in (select eid from dept)
 	</select>
+	
 </mapper>

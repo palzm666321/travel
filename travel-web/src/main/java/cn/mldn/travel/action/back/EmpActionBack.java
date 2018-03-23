@@ -1,5 +1,10 @@
 package cn.mldn.travel.action.back;
 
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,14 +17,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.mldn.travel.service.back.IEmpServiceBack;
 import cn.mldn.travel.vo.Emp;
 import cn.mldn.util.action.abs.AbstractBaseAction;
+import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("/pages/back/admin/emp/*")
 public class EmpActionBack extends AbstractBaseAction {
 	private static final String FLAG = "雇员";
 
+	@Resource
+	private IEmpServiceBack empServiceBack;
+	
 	@RequestMapping("add_pre")
 	@RequiresUser
 	@RequiresRoles("emp")
@@ -64,10 +74,16 @@ public class EmpActionBack extends AbstractBaseAction {
 
 	@RequestMapping("get")
 	@RequiresUser
-	@RequiresRoles({ "emp", "empshow" })
-	@RequiresPermissions({ "emp:get", "empshow:get" })
+	@RequiresRoles(value={ "emp", "empshow" }, logical = Logical.OR)
+	@RequiresPermissions(value={ "emp:get", "empshow:get" },logical=Logical.OR)
 	public ModelAndView get(String eid, HttpServletResponse response) {
-		super.print(response, null);
+		Map<String,Object> map=this.empServiceBack.getDetails(eid);
+		JSONObject json=new JSONObject();
+		json.put("emp", map.get("emp"));
+		json.put("dept", map.get("dept"));
+		json.put("level", map.get("level"));
+		System.err.println(map.get("dept"));
+		super.print(response,json);
 		return null;
 	}
 

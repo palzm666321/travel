@@ -15,9 +15,18 @@ $(function(){
 	}) ;
 	$("span[id^=eid-]").each(function(){
 		$(this).on("click",function(){
-			eid = this.id.split("-")[1] ;
+			eid = this.id.substring(4);
 			console.log("雇员编号：" + eid) ;
-			$("#userInfo").modal("toggle") ;
+			$.post("pages/back/admin/emp/get.action",{"eid":eid},function(data){
+				$("#info-photo").attr("src","upload/member/"+data.emp.photo);
+				$("#info-ename").text(data.emp.ename);
+				$("#info-level").text(data.level.title);
+				$("#info-dname").text(data.dept.dname);
+				$("#info-phone").text(data.emp.phone);
+				$("#info-hiredate").text(new Date(data.emp.hiredate.time).format("yyyy-MM-dd"));
+				$("#info-note").text(data.dept.note);
+				$("#userInfo").modal("toggle") ;
+			},"json")
 		}) ;
 	}) ;
 }) ;

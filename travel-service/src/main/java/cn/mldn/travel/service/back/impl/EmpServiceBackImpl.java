@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import cn.mldn.travel.dao.IActionDAO;
+import cn.mldn.travel.dao.IDeptDAO;
 import cn.mldn.travel.dao.IEmpDAO;
 import cn.mldn.travel.dao.ILevelDAO;
 import cn.mldn.travel.dao.IRoleDAO;
@@ -25,6 +26,8 @@ public class EmpServiceBackImpl implements IEmpServiceBack {
 	private IActionDAO actionDAO;
 	@Resource
 	private ILevelDAO levelDAO;
+	@Resource
+	private IDeptDAO deptDAO;
 
 	@Override
 	public Map<String, Object> get(String eid, String password) {
@@ -44,6 +47,18 @@ public class EmpServiceBackImpl implements IEmpServiceBack {
 		Map<String, Set<String>> map = new HashMap<String, Set<String>>();
 		map.put("allRoles", this.roleDAO.findAllIdByEmp(eid));
 		map.put("allActions", this.actionDAO.findAllIdByEmp(eid));
+		return map;
+	}
+
+	@Override
+	public Map<String, Object> getDetails(String eid) {
+		Map<String,Object> map=new HashMap<String,Object>();
+		Emp emp=this.empDAO.findById(eid);
+		if(this.empDAO.findById(eid)!=null) {
+			map.put("dept", this.deptDAO.findById(emp.getDid()));
+			map.put("level", this.levelDAO.findById(emp.getLid()));
+		}
+		map.put("emp", emp);
 		return map;
 	}
 

@@ -20,6 +20,7 @@ import cn.mldn.travel.service.back.IDeptServiceBack;
 import cn.mldn.travel.vo.Dept;
 import cn.mldn.travel.vo.Emp;
 import cn.mldn.util.action.abs.AbstractBaseAction;
+import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("/pages/back/admin/dept/*")
@@ -53,7 +54,7 @@ public class DeptActionBack extends AbstractBaseAction {
 	@RequiresRoles("emp")
 	@RequiresPermissions("dept:edit")
 	public ModelAndView edit(HttpServletResponse response,Dept vo) {
-		super.print(response, this.deptServiceBack.edit(vo));
+		super.print(response,null);
 		return null;
 	}
 }

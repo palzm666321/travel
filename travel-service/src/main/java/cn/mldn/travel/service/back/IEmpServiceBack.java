@@ -3,6 +3,10 @@ package cn.mldn.travel.service.back;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
+
 public interface IEmpServiceBack {
 	/**
 	 * 根据雇员id获得雇员完整信息
@@ -22,4 +26,19 @@ public interface IEmpServiceBack {
 	 * 2、key = allActions、value = 所有的权限标记信息；<br>
 	 */
 	public Map<String,Set<String>> listRoleAndAction(String eid) ;
+	
+	/**
+	 * 根据雇员编号取得雇员对应的角色与权限数据信息，该操作主要执行如下功能：<br>
+	 * 1、调用IEmpDAO.findAll()查询出所有的雇员信息；<br>
+	 * 2、调用IDeptDAO.findAll()查询出所有的部门信息；<br>
+	 * 3、调用ILevelDAO.findAll()查询出所有的等级信息; <br>
+	 * @param eid 雇员编号
+	 * @return 返回Map集合数据包含有如下内容：<br>
+	 * 1、key = allEmps、value = 所有的雇员信息；<br>
+	 * 2、key = allDepts、value = 所有的部门信息；<br>
+	 * 3、key = allLevel、value = 所有的等级信息
+	 */
+	@RequiresRoles(value= {"emp","empshow"},logical=Logical.OR)
+	@RequiresPermissions(value= {"emp:edit","empshow:get"},logical=Logical.OR)
+	public Map<String,Object> getDetails(String eid);
 }
