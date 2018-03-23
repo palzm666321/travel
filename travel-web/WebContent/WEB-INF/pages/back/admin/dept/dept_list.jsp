@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -24,26 +25,33 @@
 						<tr>
 							<th class="text-center">部门名称</th> 
 							<th class="text-center">领导姓名</th>
-							<th class="text-center">操作</th>
+							<c:if test="${level!=1}">
+								<th class="text-center">操作</th>
+							</c:if>
 						</tr>
 					</thead>
 					<tbody>
+					<c:forEach items="${allDepts}" var="dept">
 						<tr>
-							<td class="text-center"><input type="text" id="dname-1" class="form-control" value="技术部"></td>
-							<td class="text-center"><span id="eid-7369" style="cursor:pointer;">老李</span></td>
+						
 							<td class="text-center">
-								<button id="edit-1" class="btn btn-warning">
+							<shiro:hasPermission name="dept:edit">
+							<input type="text" id="dname-${dept.did}" class="form-control" value="${dept.dname}">
+							</shiro:hasPermission>
+							<shiro:lacksPermission name="dept:edit">
+								${dept.dname}
+							</shiro:lacksPermission>
+							</td>
+							
+							<td class="text-center"><span id="eid-${dept.did}" style="cursor:pointer;">${allEmps[dept.eid]}</span></td>
+							<shiro:hasPermission name="dept:edit">
+							<td class="text-center">
+								<button id="edit-${dept.did}" class="btn btn-warning">
 										<span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</button>
 							</td>
+							</shiro:hasPermission>
 						</tr>
-						<tr>
-							<td class="text-center"><input type="text" id="dname-2" class="form-control" value="市场部"></td>
-							<td class="text-center"><span id="eid-7566" style="cursor:pointer;">老李</span></td>
-							<td class="text-center">
-								<button id="edit-2" class="btn btn-warning">
-										<span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</button>
-							</td>
-						</tr>
+					</c:forEach>
 					</tbody>
 				</table>
 			</div>

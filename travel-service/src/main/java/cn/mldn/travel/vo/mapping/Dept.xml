@@ -2,4 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.mldn.travel.dao.IDeptDAO">
+	<select id="findAll" resultType="dept">
+		select did,dname,eid from dept 
+	</select>
+	<update id="doUpdate">
+		update dept set dname=#{dname} where did=#{did}
+	</update>
 </mapper>
