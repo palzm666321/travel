@@ -75,9 +75,9 @@
 								<div class="col-md-5">
 									<select id="did" name="did" class="form-control">
 										<option value="">====== 请选择所在部门 ======</option>
-										<option value="1">技术部</option>
-										<option value="2">财务部</option>
-										<option value="3">市场部</option>
+										<c:forEach items="${allDepts}" var="dept">
+											<option value="${dept.did}">${dept.dname}</option>
+										</c:forEach>
 									</select>
 								</div>
 								<!-- 定义表单错误提示显示元素 -->
@@ -89,9 +89,11 @@
 								<div class="col-md-5">
 									<select id="jid" name="jid" class="form-control">
 										<option value="">====== 请选择雇员职务 ======</option>
-										<option value="1">总监</option>
-										<option value="2">部门经理</option>
-										<option value="3">部门员工</option>
+										<c:forEach items="${allLevels}" var="lev">
+											<c:if test="${lev.level ge level}">
+												<option value="${lev.lid}">${lev.title}</option>
+											</c:if>
+										</c:forEach>
 									</select>
 								</div>
 								<!-- 定义表单错误提示显示元素 -->

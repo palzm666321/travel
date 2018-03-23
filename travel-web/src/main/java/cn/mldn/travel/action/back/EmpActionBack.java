@@ -36,6 +36,7 @@ public class EmpActionBack extends AbstractBaseAction {
 	@RequiresPermissions("emp:add")
 	public ModelAndView addPre() {
 		ModelAndView mav = new ModelAndView(super.getUrl("emp.add.page"));
+		mav.addAllObjects(this.empServiceBack.getAddPre());
 		return mav;
 	}
 

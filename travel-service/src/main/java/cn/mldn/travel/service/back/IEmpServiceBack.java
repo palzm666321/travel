@@ -42,7 +42,17 @@ public interface IEmpServiceBack {
 	@RequiresPermissions(value= {"emp:edit","empshow:get"},logical=Logical.OR)
 	public Map<String,Object> getDetails(String eid);
 	
-	
+	/**
+	 * 进行雇员数据追加前的信息查询处理，该方法要执行如下的操作；<br>
+	 * 1、调用IDeptDAO.findAll()取得全部的部门信息;<br>
+	 * 2、调用ILevelDAO.findAll()取得全部的级别信息；<br>
+	 * @return 返回有如下的数据内容;<br>
+	 * 1、key=allDepts，value=全部部门信息；<br>
+	 * 2、key=allLevels，value=全部级别信息；<br>
+	 */
+	@RequiresRoles(value= {"emp"},logical=Logical.OR)
+	@RequiresPermissions(value= {"emp:add"},logical=Logical.OR)
+	public Map<String,Object> getAddPre();
 	
 	
 }

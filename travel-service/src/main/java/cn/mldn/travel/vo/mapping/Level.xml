@@ -6,4 +6,7 @@
 	<select id="findById" parameterType="string" resultType="Level">
 		SELECT lid,title,level FROM level WHERE lid=#{lid} ;
 	</select>
+	<select id="findAll" resultType="Level">
+		select lid,title,level from level
+	</select>
 </mapper>

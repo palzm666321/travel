@@ -61,5 +61,12 @@ public class EmpServiceBackImpl implements IEmpServiceBack {
 		map.put("emp", emp);
 		return map;
 	}
-
+ 
+	@Override
+	public Map<String, Object> getAddPre() {
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("allLevels", this.levelDAO.findAll());
+		map.put("allDepts", this.deptDAO.findAll());
+		return map;
+	}	
 }
