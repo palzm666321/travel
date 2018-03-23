@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.mldn.travel.service.back.IDeptServiceBack;
+import cn.mldn.travel.vo.Dept;
 import cn.mldn.travel.vo.Emp;
 import cn.mldn.util.action.abs.AbstractBaseAction;
 
@@ -51,8 +52,8 @@ public class DeptActionBack extends AbstractBaseAction {
 	@RequiresUser
 	@RequiresRoles("emp")
 	@RequiresPermissions("dept:edit")
-	public ModelAndView edit(HttpServletResponse response) {
-		super.print(response, "true");
+	public ModelAndView edit(HttpServletResponse response,Dept vo) {
+		super.print(response, this.deptServiceBack.edit(vo));
 		return null;
 	}
 }

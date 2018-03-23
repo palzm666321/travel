@@ -11,6 +11,7 @@ import cn.mldn.travel.dao.IDeptDAO;
 import cn.mldn.travel.dao.IEmpDAO;
 import cn.mldn.travel.service.back.IDeptServiceBack;
 import cn.mldn.travel.service.util.abs.AbstractService;
+import cn.mldn.travel.vo.Dept;
 
 
 @Service
@@ -29,4 +30,9 @@ public class DeptServiceBackImpl extends AbstractService implements IDeptService
 		return map;
 	}
 	
+	
+	@Override
+	public boolean edit(Dept vo) {
+		return this.deptDAO.doUpdate(vo);
+	}
 }

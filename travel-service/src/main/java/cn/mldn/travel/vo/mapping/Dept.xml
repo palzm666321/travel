@@ -5,7 +5,7 @@
 	<select id="findAll" resultType="dept">
 		select did,dname,eid from dept 
 	</select>
-	<update id="doUpdate">
+	<update id="doUpdate" parameterType="Dept">
 		update dept set dname=#{dname} where did=#{did}
 	</update>
 </mapper>

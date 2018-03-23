@@ -2,9 +2,10 @@ package cn.mldn.travel.service.back;
 
 import java.util.Map;
 
-import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
+
+import cn.mldn.travel.vo.Dept;
 
 public interface IDeptServiceBack{
 	/**
@@ -14,5 +15,9 @@ public interface IDeptServiceBack{
 	 *         2、key = allEmps、value = 部门的所有领导信息集合。<br>
 	 */
 	public Map<String,Object> list();
+	
+	@RequiresRoles("emp")
+	@RequiresPermissions("dept:edit")
+	public boolean edit(Dept vo);
 	
 }
