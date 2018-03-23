@@ -41,4 +41,8 @@ public interface IEmpServiceBack {
 	@RequiresRoles(value= {"emp","empshow"},logical=Logical.OR)
 	@RequiresPermissions(value= {"emp:edit","empshow:get"},logical=Logical.OR)
 	public Map<String,Object> getDetails(String eid);
+	
+	
+	
+	
 }

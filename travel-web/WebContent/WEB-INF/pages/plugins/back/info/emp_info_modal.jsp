@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro"%>
 <div class="modal fade" id="userInfo"  tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true" data-keyboard="true">
 	<div class="modal-dialog" style="width: 1000px">
 		<div class="modal-content">
@@ -12,7 +14,17 @@
 				<div id="costBasicInfo">
 					<div class="row">
 						<div class="col-xs-3">
-							<img src="upload/member/nophoto.png" style="width:200px;" name="info-photo">
+							<div><img src="upload/member/nophoto.png" style="width:200px;" name="info-photo"></div>
+								<shiro:hasPermission name="dept:edit">
+									<c:if test="${level==2}">
+										<div class="height:50px;">&nbsp;</div>
+										<div>
+											<button id="levelBtn" class="btn btn-danger btn-lg">
+												<span class="glyphicon glyphicon-pencil">&nbsp;部门领导降级</span>
+											</button>
+										</div>
+									</c:if>
+								</shiro:hasPermission>
 						</div>
 						<div class="col-xs-8">
 							<table class="table table-condensed" style="width:700px;">

@@ -82,7 +82,6 @@ public class EmpActionBack extends AbstractBaseAction {
 		json.put("emp", map.get("emp"));
 		json.put("dept", map.get("dept"));
 		json.put("level", map.get("level"));
-		System.err.println(map.get("dept"));
 		super.print(response,json);
 		return null;
 	}

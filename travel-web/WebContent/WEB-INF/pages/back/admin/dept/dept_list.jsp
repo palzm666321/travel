@@ -43,7 +43,7 @@
 							</shiro:lacksPermission>
 							</td>
 							
-							<td class="text-center"><span id="eid-${dept.eid}" style="cursor:pointer;">${allEmps[dept.eid]}</span></td>
+							<td class="text-center"><span id="eid-${dept.eid}" style="cursor:pointer;" alt="${dept.did}">${allEmps[dept.eid]}</span></td>
 							<shiro:hasPermission name="dept:edit">
 							<td class="text-center">
 								<button id="edit-${dept.did}" class="btn btn-warning">

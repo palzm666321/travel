@@ -38,14 +38,14 @@ public class DeptActionBack extends AbstractBaseAction {
 		ModelAndView mav = new ModelAndView(super.getUrl("dept.list.page"));
 		Map<String,Object> map=this.deptServiceBack.list();
 		Map<String,Object> empMap=new HashMap<String,Object>();
-		List<Emp> list=(List<Emp>) map.get("allEmps"); 
+		List<Emp> list=(List<Emp>) map.get("allEmps"); //取得所有的雇员信息
 		Iterator<Emp> it=list.iterator();
 		while(it.hasNext()) {
 			Emp emp=it.next();
 			empMap.put(emp.getEid(), emp.getEname());
 		}
 		mav.addObject("allEmps",empMap);
-		mav.addObject("allDepts",map.get("allDepts"));
+		mav.addObject("allDepts",map.get("allDepts"));// 保存所有的部门信息
 		return mav;
 	}
 
@@ -53,8 +53,17 @@ public class DeptActionBack extends AbstractBaseAction {
 	@RequiresUser
 	@RequiresRoles("emp")
 	@RequiresPermissions("dept:edit")
-	public ModelAndView edit(HttpServletResponse response,Dept vo) {
-		super.print(response,null);
+	public ModelAndView edit(HttpServletResponse response,Long did) {
+		super.print(response,this.deptServiceBack.editLevel(did,super.getEid()));
+		return null;
+	}
+	
+	@RequestMapping("mgr")
+	@RequiresUser
+	@RequiresRoles(value = { "emp" }, logical = Logical.OR)
+	@RequiresPermissions(value = { "dept:edit", "emp:edit" }, logical = Logical.AND)
+	public ModelAndView editMgr(HttpServletResponse response,Long did) {
+		super.print(response,this.deptServiceBack.editLevel(did,super.getEid()));
 		return null;
 	}
 }

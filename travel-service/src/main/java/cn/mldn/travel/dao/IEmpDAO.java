@@ -11,4 +11,11 @@ public interface IEmpDAO extends IBaseDAO<String, Emp> {
 	 * @return 返回所有雇员信息
 	 */
 	public List<Emp> findAllManager();
+	
+	/**
+	 * 更新一个雇员对应的级别处理
+	 * @param vo 雇员信息
+	 * @return 更新成功返回true
+	 */
+	public boolean doUpdateLevel(Emp vo);
 }

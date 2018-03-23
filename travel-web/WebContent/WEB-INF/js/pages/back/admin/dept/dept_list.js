@@ -16,6 +16,7 @@ $(function(){
 	$("span[id^=eid-]").each(function(){
 		$(this).on("click",function(){
 			eid = this.id.substring(4);
+			did=$(this).attr("alt");
 			console.log("雇员编号：" + eid) ;
 			$.post("pages/back/admin/emp/get.action",{"eid":eid},function(data){
 				$("#info-photo").attr("src","upload/member/"+data.emp.photo);
@@ -25,8 +26,18 @@ $(function(){
 				$("#info-phone").text(data.emp.phone);
 				$("#info-hiredate").text(new Date(data.emp.hiredate.time).format("yyyy-MM-dd"));
 				$("#info-note").text(data.dept.note);
+				$("#levelBtn").attr("alt",did);
 				$("#userInfo").modal("toggle") ;
 			},"json")
 		}) ;
 	}) ;
+	
+	$("#levelBtn").on("click",function(){
+		did=$(this).attr("alt");
+		$.post("pages/back/admin/dept/mgr.action",{"did":did},function(data){
+			$("#mgr-"+did).empty();
+			operateAlert(data.trim()=="true","部门领导更新成功！","部门名称领导失败！") ;
+			$("#userInfo").modal("toggle") ;
+		},"text")
+	});
 }) ;

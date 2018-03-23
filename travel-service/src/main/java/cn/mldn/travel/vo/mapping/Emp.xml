@@ -10,4 +10,8 @@
 		select eid,lid,ename from emp where eid in (select eid from dept)
 	</select>
 	
+	<update id="doUpdateLevel" parameterType="Emp">
+		update emp set lid=#{lid},ineid=#{ineid} where eid=#{eid}
+	</update>
+	
 </mapper>
