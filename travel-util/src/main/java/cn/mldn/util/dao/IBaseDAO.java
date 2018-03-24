@@ -1,6 +1,7 @@
 package cn.mldn.util.dao;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 该接口可以明确的描述出基础的DAO操作方法定义
@@ -59,12 +60,13 @@ public interface IBaseDAO<K, V> {
 	 * @param keyWord 模糊查询关键字
 	 * @return 由于返回多行的查询记录，所以每行记录都要求封装在VO类对象之中，如果没有返回任何查询结果，该集合长度为0(size()==0)，而不是null
 	 */
-	public List<V> findAllSplit(Integer currentPage,Integer lineSize,String column,String keyWord) ;
+	public List<V> findAllSplit(Map<String,Object> param) ;
 	/**
 	 * 是进行全部数据统计个数的查询，使用COUNT()函数
+	 * @param param 
 	 * @return 表中的全部记录数，如果表中没有记录，返回的就是0
 	 */
-	public Long getAllCount() ;
+	public Long getAllCount(Map<String, Object> param) ;
 	/**
 	 * 统计模糊查询的数据量，使用COUNT()函数
 	 * @param column 模糊查询的设置列

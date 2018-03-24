@@ -32,11 +32,12 @@
 	<select id="findAllSplit" resultType="Emp" parameterType="map">
 		select eid,lid,did,ename,sal,phone,password,photo,note,hiredate,ineid,locked from emp
 		<where>
+			 locked!=2 
 			<if test="column != null and keyWord != null">
 				${column} like #{keyWord}
 			</if>
 		</where>
-		limit #{start},#{lineSize}
+		 limit #{start},#{lineSize} 
 	</select>
 	
 	<update id="doUpdate" parameterType="Emp">
@@ -48,6 +49,21 @@
 	 	<where>
 	 		eid=#{eid}
 	 	</where>
+	</update>
+	
+	<select id="findAllByIds" resultType="Emp">
+		select eid,lid,did,ename,sal,phone,password,photo,note,hiredate,ineid,locked from emp
+		<where>
+			eid in 
+			<foreach collection="array" open="(" close=")" separator="," item="myeid">
+				#{myeid}
+			</foreach>
+			and locked!=2
+		</where>
+	</select>
+	
+	<update id="doUpdateLocked" parameterType="Emp">
+		update emp set locked=#{locked},ineid=#{ineid} where eid=#{eid}
 	</update>
 	
 </mapper>

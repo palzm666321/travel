@@ -2,6 +2,8 @@ package cn.mldn.travel.service.back.impl;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -184,5 +186,40 @@ public class EmpServiceBackImpl extends AbstractService implements IEmpServiceBa
 		map.put("emp", this.empDAO.findById(eid));
 		return map;
 	}
+	
+	@Override
+	public boolean delete(Set<String> eids,String heid) {
+		//取得当前的操作者的雇员完整信息
+		Emp humanEmp=this.empDAO.findById(heid);
+		//1、查询出所有要删除的雇员信息
+		List<Emp> allEmp=this.empDAO.findAllByIds(eids.toArray());
+		//2、遍历出所有要进行删除的数据信息，检查是否存在有领导信息
+		Iterator<Emp> iter=allEmp.iterator();
+		while(iter.hasNext()) {
+			Emp emp=iter.next();
+			emp.setIneid(heid);//设置操作者的eid信息
+			if("manager".equals(emp.getLid())) {//该操作为领导
+				if("manager".equals(humanEmp.getLid())) {
+					Dept dept=new Dept();
+					dept.setDid(emp.getDid());//当前雇员所在的部门
+					emp.setLid("staff");
+					if(this.empDAO.doUpdateLevel(emp)) {//先进行领导降级
+						if(this.deptDAO.doUpdateManager(dept)) {//更新部门领导信息
+							emp.setLocked(2);//逻辑删除位
+							this.empDAO.doUpdateLocked(emp);
+						}
+					}
+				}
+			}else if("chief".equals(emp.getLid())){
+				continue;
+			}else {
+				emp.setLocked(2);//逻辑删除位
+				this.empDAO.doUpdateLocked(emp);
+			}
+		}
+		return true;
+	}
+	
+	
 	
 }

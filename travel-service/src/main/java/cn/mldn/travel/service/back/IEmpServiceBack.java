@@ -1,5 +1,6 @@
 package cn.mldn.travel.service.back;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -9,7 +10,6 @@ import org.apache.shiro.authz.annotation.RequiresRoles;
 
 import cn.mldn.travel.service.exception.DeptManagerExistException;
 import cn.mldn.travel.service.exception.LevelNotEnoughException;
-import cn.mldn.travel.vo.Dept;
 import cn.mldn.travel.vo.Emp;
 
 public interface IEmpServiceBack {
@@ -121,4 +121,18 @@ public interface IEmpServiceBack {
 	 * 3、key=emp，value=雇员信息；<br>
 	 */ 
 	public Map<String,Object> getEditPre(String eid);
+	
+	/**
+	 * 进行雇员信息的删除处理，该删除操作要执行如下步骤：
+	 * 1、首先要求依次判断所有要删除的员工数据是否具备有领导级别的信息，如果存在有领导级别的信息则要求员工先进行降级，而后再更新部门领导；
+	 * 2、每一次的更新值需要调用doUpdateLocked()方法就可以进行标志位的操作处理
+	 * @param eids 要更新的全部雇员编号
+	 * @param eids 要操作此功能的当前雇员编号
+	 * @return 删除成功返回true
+	 */
+	@RequiresRoles("emp")
+	@RequiresPermissions("emp:delete")
+	public boolean delete(Set<String> eids, String heid);
+	
+
 }

@@ -19,8 +19,20 @@ public interface IEmpDAO extends IBaseDAO<String, Emp> {
 	 * @return 更新成功返回true
 	 */
 	public boolean doUpdateLevel(Emp vo);
-	
-	public List<Emp> findAllSplit(Map<String, Object> param);
 
-	public Long getAllCount(Map<String, Object> param);
+	
+	
+	/**
+	 * 查询出所有指定编号的雇员信息
+	 * @param eid 雇员编号
+	 * @return 指定雇员信息
+	 */
+	public List<Emp> findAllByIds(Object eid[]);
+	
+	/**
+	 * 进行locked字段的更新处理
+	 * @param vo 主要需要的是用户编号以及用户的locked状态
+	 * @return 更新成功返回true
+	 */
+	public boolean doUpdateLocked(Emp vo);
 }
