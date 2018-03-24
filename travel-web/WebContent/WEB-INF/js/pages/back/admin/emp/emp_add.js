@@ -53,8 +53,12 @@ $(function(){
 			"phone" : {
 				required : true 
 			},
-			"jid" : {
+			"lid" : {
 				required : true 
+			},
+			"sal" : {
+				required : true,
+				number : true
 			},
 			"did" : {
 				required : true 

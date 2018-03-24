@@ -7,6 +7,9 @@ import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 
+import cn.mldn.travel.service.exception.DeptManagerExistException;
+import cn.mldn.travel.vo.Emp;
+
 public interface IEmpServiceBack {
 	/**
 	 * 根据雇员id获得雇员完整信息
@@ -50,9 +53,18 @@ public interface IEmpServiceBack {
 	 * 1、key=allDepts，value=全部部门信息；<br>
 	 * 2、key=allLevels，value=全部级别信息；<br>
 	 */
-	@RequiresRoles(value= {"emp"},logical=Logical.OR)
-	@RequiresPermissions(value= {"emp:add"},logical=Logical.OR)
 	public Map<String,Object> getAddPre();
 	
+	/**
+	 * 实现雇员信息的追加，该方法要执行如下的操作;<br>
+	 * 1、要判断当前追加的雇员编号信息是否存在，如果存在则无法添加；<br>
+	 * 2、随后根据增加雇员级别，来判断所在的部门情况，如果是该部门已经存在有经理，那么将无法进行保存，应该抛出异常;<br>
+	 * 3、判断当前操作者的级别是否为经理，如果为经理才可以进行经理的相关处理;<br>
+	 * 4、进行雇员信息的保存；
+	 * @param vo 包含有新雇员的信息
+	 * @return 增加成功返回true，如果重名或增加失败返回false
+	 * @throws DeptManagerExistException 如果现在该部门存在有经理，则抛出异常
+	 */
+	public boolean add(Emp vo)throws DeptManagerExistException;
 	
 }

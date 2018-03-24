@@ -14,4 +14,9 @@
 		update emp set lid=#{lid},ineid=#{ineid} where eid=#{eid}
 	</update>
 	
+	<insert id="doCreate" parameterType="Emp">
+		insert into emp(eid,lid,did,ename,sal,phone,password,photo,note,hiredate,ineid,locked)
+		values
+		(#{eid},#{lid},#{did},#{ename},#{sal},#{phone},#{password},#{photo},#{note},#{hiredate},#{ineid},#{locked})	
+	</insert>
 </mapper>

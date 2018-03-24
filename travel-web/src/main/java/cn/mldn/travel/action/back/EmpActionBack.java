@@ -18,8 +18,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.mldn.travel.service.back.IEmpServiceBack;
+import cn.mldn.travel.service.exception.DeptManagerExistException;
 import cn.mldn.travel.vo.Emp;
 import cn.mldn.util.action.abs.AbstractBaseAction;
+import cn.mldn.util.enctype.PasswordUtil;
+import cn.mldn.util.web.FileUtils;
 import net.sf.json.JSONObject;
 
 @Controller
@@ -46,9 +49,25 @@ public class EmpActionBack extends AbstractBaseAction {
 	@RequiresPermissions("emp:add")
 	public ModelAndView add(Emp vo, MultipartFile pic, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView(super.getUrl("back.forward.page"));
-		// super.setUrlAndMsg(request, "emp.add.action", "vo.add.failure",
-		// FLAG);
-		super.setUrlAndMsg(request, "emp.add.action", "vo.add.success", FLAG);
+		FileUtils fileUtil=null;
+		vo.setIneid(super.getEid());//通过Session取得当前操作者的雇员编号
+		vo.setPassword(PasswordUtil.getPassword(vo.getPassword()));//密码加密处理
+		if(!pic.isEmpty()) {//如果现在有文件上传
+			fileUtil=new FileUtils(pic);
+			vo.setPhoto(fileUtil.createFileName());//把生成的文件名称保存在vo类之中
+		}
+		try {
+			if(this.empServiceBack.add(vo)) {
+				if(fileUtil != null) {//准备上传文件
+					fileUtil.saveFile(request, "upload/member/", vo.getPhoto());
+				}
+				super.setUrlAndMsg(request, "emp.add.action", "vo.add.success", FLAG);
+			}else {
+				super.setUrlAndMsg(request, "emp.add.action", "vo.add.failure", FLAG);
+			}
+		}catch(DeptManagerExistException e) {
+			super.setUrlAndMsg(request, "emp.add.action", "emp.add.dept.mgr.failure");
+		}
 		return mav;
 	}
 
