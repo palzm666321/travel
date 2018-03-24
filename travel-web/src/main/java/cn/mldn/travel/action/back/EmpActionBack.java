@@ -1,7 +1,8 @@
 package cn.mldn.travel.action.back;
 
 import java.util.HashMap;
-import java.util.Locale;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -19,9 +20,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.mldn.travel.service.back.IEmpServiceBack;
 import cn.mldn.travel.service.exception.DeptManagerExistException;
+import cn.mldn.travel.service.exception.LevelNotEnoughException;
+import cn.mldn.travel.vo.Dept;
 import cn.mldn.travel.vo.Emp;
+import cn.mldn.travel.vo.Level;
 import cn.mldn.util.action.abs.AbstractBaseAction;
 import cn.mldn.util.enctype.PasswordUtil;
+import cn.mldn.util.split.ActionSplitPageUtil;
 import cn.mldn.util.web.FileUtils;
 import net.sf.json.JSONObject;
 
@@ -87,6 +92,7 @@ public class EmpActionBack extends AbstractBaseAction {
 	@RequiresPermissions("emp:edit")
 	public ModelAndView editPre(String eid) {
 		ModelAndView mav = new ModelAndView(super.getUrl("emp.edit.page"));
+		mav.addAllObjects(this.empServiceBack.getEditPre(eid));
 		return mav;
 	}
 
@@ -96,9 +102,33 @@ public class EmpActionBack extends AbstractBaseAction {
 	@RequiresPermissions("emp:edit")
 	public ModelAndView edit(Emp vo, MultipartFile pic, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView(super.getUrl("back.forward.page"));
-		// super.setUrlAndMsg(request, "emp.list.action", "vo.edit.failure",
-		// FLAG);
-		super.setUrlAndMsg(request, "emp.list.action", "vo.edit.success", FLAG);
+		FileUtils fileUtil=null;
+		vo.setIneid(super.getEid());//通过Session取得当前操作者的雇员编号
+		if(!(vo.getPassword()==null||"".equals(vo.getPassword()))) {//要修改密码
+			vo.setPassword(PasswordUtil.getPassword(vo.getPassword()));//密码加密处理
+		}else {
+			vo.setPassword(null);//""字符串问题
+		}
+		if(!pic.isEmpty()) {//如果说现在有文件上传
+			fileUtil=new FileUtils(pic);
+			if("nophoto.png".equals(vo.getPhoto())) {//原始没有图片名称
+				vo.setPhoto(fileUtil.createFileName());//把生成的文件名称保存在vo类之中
+			}
+		}
+		try {
+			if(this.empServiceBack.edit(vo)) {
+				if(fileUtil!=null) {//准备上传文件
+					fileUtil.saveFile(request, "upload/member/", vo.getPhoto());
+				}
+				super.setUrlAndMsg(request, "emp.list.action", "vo.edit.success", FLAG);
+			}else {
+				super.setUrlAndMsg(request, "emp.list.action", "vo.edit.failure", FLAG);
+			}
+		}catch(DeptManagerExistException e) {
+			super.setUrlAndMsg(request, "emp.list.action", "emp.add.dept.mgr.failure");
+		}catch(LevelNotEnoughException e) {
+			super.setUrlAndMsg(request, "emp.list.action", "level.not.enough.failure");
+		}
 		return mav;
 	}
 
@@ -116,12 +146,32 @@ public class EmpActionBack extends AbstractBaseAction {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping("list")
 	@RequiresUser
 	@RequiresRoles(value = { "emp", "empshow" }, logical = Logical.OR)
 	@RequiresPermissions(value = { "emp:list", "empshow:list" }, logical = Logical.OR)
 	public ModelAndView list(String ids, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView(super.getUrl("emp.list.page"));
+		ActionSplitPageUtil aspu=new ActionSplitPageUtil(request, "雇员编号:eid|雇员姓名:ename|联系电话:phone",super.getMsg("emp.list.action"));
+		Map<String,Object> map=this.empServiceBack.list(aspu.getCurrentPage(), aspu.getLineSize(), aspu.getColumn(), aspu.getKeyWord());
+		mav.addAllObjects(map);//把内容交给request属性范围
+		List<Dept> allDepts=(List<Dept>) map.get("allDepts");
+		List<Level> allLevels=(List<Level>) map.get("allLevels");
+		Map<Long,String> deptMap=new HashMap<Long,String>();
+		Iterator<Dept> iter=allDepts.iterator();
+		while(iter.hasNext()) {
+			Dept dept=iter.next();
+			deptMap.put(dept.getDid(), dept.getDname());
+		}
+		Map<String,String> levelMap=new HashMap<String,String>();
+		Iterator<Level> it=allLevels.iterator();
+		while(it.hasNext()) {
+			Level lev=it.next();
+			levelMap.put(lev.getLid(), lev.getTitle());
+		}
+		mav.addObject("allDepts", deptMap);//属性名称一样会出现覆盖
+		mav.addObject("allLevels",levelMap);//属性名称一样会出现覆盖
 		return mav;
 	}
 

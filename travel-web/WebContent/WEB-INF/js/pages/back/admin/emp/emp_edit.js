@@ -27,40 +27,24 @@ $(function(){
 		rules : {
 			"eid" : {
 				required : true
-				//remote : {
-//				url : "check.jsp", // 后台处理程序
-//				type : "post", // 数据发送方式
-//				dataType : "html", // 接受数据格式
-//				data : { // 要传递的数据
-//					code : function() {
-//						return $("#code").val();
-//					}
-//				},
-//				dataFilter : function(data, type) {
-//					if (data.trim() == "true")
-//						return true;
-//					else
-//						return false;
-//				}
-//}
-			} ,
-			"password" : {
-				required : true
-			},
+			} , 
 			"ename" : {
 				required : true
 			} ,
 			"phone" : {
 				required : true 
 			},
-			"jid" : {
+			"lid" : {
 				required : true 
+			}, 
+			"sal" : { 
+				required : true ,
+				number : true
 			},
 			"did" : {
 				required : true 
 			},
 			"pic" : {
-				required : true ,
 				accept : ["jpg","png","gif","bmp"]
 			},
 			"note" : {

@@ -40,22 +40,26 @@
 						</tr>
 					</thead>
 					<tbody>
+					
+					<c:forEach items="${allEmps}" var="emp">
 						<tr>
-							<td class="text-center"><input type="checkbox" id="eid-1" value="1"></td>
+							<td class="text-center"><input type="checkbox" id="eid-${emp.eid}" value="${emp.eid}"></td>
 							<td class="text-center">
-								<img src="upload/member/nophoto.png" style="width:20px;"/> 
+								<img src="upload/member/${emp.photo}" style="width:20px;"/> 
 							</td> 
-							<td class="text-center">老李</td>
-							<td class="text-center">经理</td>
-							<td class="text-center">人事部</td>
-							<td class="text-center">2019-10-10</td>
-							<td class="text-center">3000</td>
-							<td class="text-center">13010109992</td>
+							<td class="text-center">${emp.ename}</td>
+							<td class="text-center">${allLevels[emp.lid]}</td>
+							<td class="text-center">${allDepts[emp.did]}</td>
+							<td class="text-center"><fmt:formatDate value="${emp.hiredate}" pattern="yyyy-MM-dd" /></td>
+							<td class="text-center">${emp.sal}</td>
+							<td class="text-center">${emp.phone}</td>
 							<td class="text-center">
-								<a type="button" class="btn btn-warning btn-xs" href="<%=EMP_EDIT_URL%>?eid=">
+								<a type="button" class="btn btn-warning btn-xs" href="<%=EMP_EDIT_URL%>?eid=${emp.eid}">
 										<span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</a>
 							</td>
 						</tr>
+					</c:forEach>
+					
 					</tbody>
 				</table>
 				<div id="splitBarDiv" style="float:right">

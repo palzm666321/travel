@@ -19,4 +19,35 @@
 		values
 		(#{eid},#{lid},#{did},#{ename},#{sal},#{phone},#{password},#{photo},#{note},#{hiredate},#{ineid},#{locked})	
 	</insert>
+	
+	<select id="getAllCount" resultType="long" parameterType="map">
+		select count(*) from emp
+		<where>
+			<if test="column!=null and keyWord!=null">
+				${column} like #{keyWord}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findAllSplit" resultType="Emp" parameterType="map">
+		select eid,lid,did,ename,sal,phone,password,photo,note,hiredate,ineid,locked from emp
+		<where>
+			<if test="column != null and keyWord != null">
+				${column} like #{keyWord}
+			</if>
+		</where>
+		limit #{start},#{lineSize}
+	</select>
+	
+	<update id="doUpdate" parameterType="Emp">
+	 	update emp set 
+	 	lid=#{lid},did=#{did},ename=#{ename},sal=#{sal},phone=#{phone},note=#{note},ineid=#{ineid}
+	 	<if test="password!=null">
+	 		,password=#{password}
+	 	</if>
+	 	<where>
+	 		eid=#{eid}
+	 	</where>
+	</update>
+	
 </mapper>

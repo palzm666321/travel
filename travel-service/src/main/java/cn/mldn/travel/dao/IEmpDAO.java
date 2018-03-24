@@ -1,6 +1,7 @@
 package cn.mldn.travel.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import cn.mldn.travel.vo.Emp;
 import cn.mldn.util.dao.IBaseDAO;
@@ -18,4 +19,8 @@ public interface IEmpDAO extends IBaseDAO<String, Emp> {
 	 * @return 更新成功返回true
 	 */
 	public boolean doUpdateLevel(Emp vo);
+	
+	public List<Emp> findAllSplit(Map<String, Object> param);
+
+	public Long getAllCount(Map<String, Object> param);
 }
