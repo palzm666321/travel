@@ -100,4 +100,11 @@ public class EmpServiceBackImpl implements IEmpServiceBack {
 		}
 		return false;
 	}
+	
+	
+	@Override
+	public Emp getEid(String eid) {
+		return this.empDAO.findById(eid);
+	}
+	
 }

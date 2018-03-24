@@ -70,6 +70,16 @@ public class EmpActionBack extends AbstractBaseAction {
 		}
 		return mav;
 	}
+	
+	@RequestMapping("add_check")
+	@RequiresUser
+	@RequiresRoles("emp")
+	@RequiresPermissions("emp:add")
+	public ModelAndView check(HttpServletResponse response,String eid) {
+		super.print(response,this.empServiceBack.getEid(eid)==null);
+		return null;
+	}
+	
 
 	@RequestMapping("edit_pre")
 	@RequiresUser

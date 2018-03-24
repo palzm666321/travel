@@ -67,4 +67,11 @@ public interface IEmpServiceBack {
 	 */
 	public boolean add(Emp vo)throws DeptManagerExistException;
 	
+	/**
+	 * 调用IEmpDAO.findById()方法根据eid查询雇员信息
+	 * @param eid 雇员编号
+	 * @return 如果有雇员返回对象
+	 */
+	public Emp getEid(String eid);
+	
 }
