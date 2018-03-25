@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -16,6 +17,7 @@
 			<jsp:param name="mi" value="1"/>
 			<jsp:param name="msi" value="13"/>
 		</jsp:include>
+		
 		<div class="content-wrapper text-left">
 		<div class="panel panel-success">
 			<div class="panel-heading">
@@ -36,7 +38,9 @@
 							<th class="text-center">雇佣日期</th>
 							<th class="text-center">基本工资</th>
 							<th class="text-center">联系电话</th>
-							<th class="text-center">操作</th>
+							<shiro:hasPermission name="emp:edit">
+								<th class="text-center">操作</th>
+							</shiro:hasPermission>
 						</tr>
 					</thead>
 					<tbody>
@@ -47,7 +51,8 @@
 							<td class="text-center">
 								<img src="upload/member/${emp.photo}" style="width:20px;"/> 
 							</td> 
-							<td class="text-center">${emp.ename}</td>
+							<td class="text-center">
+								<span id="eid-${emp.eid}" style="cursor: pointer;">${emp.ename}</span></td>
 							<td class="text-center">${allLevels[emp.lid]}</td>
 							<td class="text-center">${allDepts[emp.did]}</td>
 							<td class="text-center"><fmt:formatDate value="${emp.hiredate}" pattern="yyyy-MM-dd" /></td>
@@ -63,7 +68,9 @@
 					</tbody>
 				</table>
 				<div>
-					<button id="deleteBtn" class="btn btn-danger btn-lg">删除所选雇员信息</button>
+					<shiro:hasPermission name="emp:remove">
+						<button id="deleteBtn" class="btn btn-danger btn-lg">删除所选雇员信息</button>
+					</shiro:hasPermission>
 				</div> 
 				<div id="splitBarDiv" style="float:right">
 					<jsp:include page="/WEB-INF/pages/plugins/split_plugin_page_bar.jsp"/>
@@ -80,5 +87,6 @@
 		<jsp:include page="/WEB-INF/pages/plugins/back/include_menu_sidebar.jsp" />
 		<div class="control-sidebar-bg"></div>
 	</div>
+	<jsp:include page="/WEB-INF/pages/plugins/back/info/emp_info_modal.jsp"/>
 	<jsp:include page="/WEB-INF/pages/plugins/back/include_javascript_foot.jsp" />
-<jsp:include page="/WEB-INF/pages/plugins/back/back_footer.jsp"/>
+	<jsp:include page="/WEB-INF/pages/plugins/back/back_footer.jsp"/>

@@ -25,7 +25,7 @@ $(function(){
 				$("#info-dname").text(data.dept.dname);
 				$("#info-phone").text(data.emp.phone);
 				$("#info-hiredate").text(new Date(data.emp.hiredate.time).format("yyyy-MM-dd"));
-				$("#info-note").text(data.dept.note);
+				$("#info-note").text(data.emp.note);
 				$("#levelBtn").attr("alt",did);
 				$("#userInfo").modal("toggle") ;
 			},"json")
