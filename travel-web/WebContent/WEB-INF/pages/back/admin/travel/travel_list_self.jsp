@@ -41,69 +41,29 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr id="travel-1">
-								<td class="text-center"><span class="text-danger"><span class="glyphicon glyphicon-flag"></span>&nbsp;已完成</span></td>
-								<td class="text-center">
-									<span id="showBtn-1" onmouseover="this.style.cursor='hand'">XX公司CRM项目</span>
-								</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">20人</td>
-								<td class="text-center">￥8923.23</td>
-								<td class="text-center">
-									<a type="button" class="btn btn-primary btn-xs" href="<%=TRAVEL_SUBMIT_URL%>">
-										<span class="glyphicon glyphicon-cloud-upload"></span>&nbsp;提交申请</a>
-									<a type="button" class="btn btn-warning btn-xs" href="<%=TRAVEL_USER_URL%>">
-										<span class="glyphicon glyphicon-user"></span>&nbsp;出差人员</a>
-									<a type="button" class="btn btn-warning btn-xs" href="<%=TRAVEL_COST_URL%>">
-										<span class="glyphicon glyphicon-credit-card"></span>&nbsp;出差费用</a>
-									<a type="button" class="btn btn-info btn-xs" href="<%=TRAVEL_EDIT_URL%>">
-										<span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</a>
-									<a type="button" class="btn btn-danger btn-xs" href="<%=TRAVEL_DELETE_URL%>">
-										<span class="glyphicon glyphicon-remove"></span>&nbsp;删除</a>
-								</td>
-							</tr> 
-							<tr id="travel-2">
-								<td class="text-center"><span class="text-warning"><span class="glyphicon glyphicon-flag"></span>&nbsp;进行中</span></td>
-								<td class="text-center">
-									<span id="showBtn-2" onmouseover="this.style.cursor='hand'">XX公司CRM项目</span>
-								</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">20人</td>
-								<td class="text-center">￥8923.23</td>
-								<td class="text-center">
-									<a type="button" class="btn btn-primary btn-xs" href="<%=TRAVEL_SUBMIT_URL%>">
-										<span class="glyphicon glyphicon-cloud-upload"></span>&nbsp;提交申请</a>
-									<a type="button" class="btn btn-warning btn-xs" href="<%=TRAVEL_DELETE_URL%>">
-										<span class="glyphicon glyphicon-user"></span>&nbsp;出差人员</a>
-									<a type="button" class="btn btn-warning btn-xs" href="<%=TRAVEL_DELETE_URL%>">
-										<span class="glyphicon glyphicon-credit-card"></span>&nbsp;出差费用</a>
-									<a type="button" class="btn btn-info btn-xs" href="<%=TRAVEL_EDIT_URL%>">
-										<span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</a>
-									<a type="button" class="btn btn-danger btn-xs" href="<%=TRAVEL_DELETE_URL%>">
-										<span class="glyphicon glyphicon-remove"></span>&nbsp;删除</a>
-								</td>
-							</tr> 
-							<tr id="travel-3">
-								<td class="text-center"><span class="text-primary"><span class="glyphicon glyphicon-flag"></span>&nbsp;待提交</span></td>
-								<td class="text-center">
-									<span id="showBtn-3" onmouseover="this.style.cursor='hand'">XX公司CRM项目</span>
-								</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">20人</td>
-								<td class="text-center">￥8923.23</td>
-								<td class="text-center">
-									<a type="button" class="btn btn-primary btn-xs" href="<%=TRAVEL_DELETE_URL%>">
-										<span class="glyphicon glyphicon-cloud-upload"></span>&nbsp;提交申请</a>
-									<a type="button" class="btn btn-warning btn-xs" href="<%=TRAVEL_DELETE_URL%>">
-										<span class="glyphicon glyphicon-user"></span>&nbsp;出差人员</a>
-									<a type="button" class="btn btn-warning btn-xs" href="<%=TRAVEL_DELETE_URL%>">
-										<span class="glyphicon glyphicon-credit-card"></span>&nbsp;出差费用</a>
-									<a type="button" class="btn btn-info btn-xs" href="<%=TRAVEL_EDIT_URL%>">
-										<span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</a>
-									<a type="button" class="btn btn-danger btn-xs" href="<%=TRAVEL_DELETE_URL%>">
-										<span class="glyphicon glyphicon-remove"></span>&nbsp;删除</a>
-								</td>
-							</tr> 
+							<c:forEach items="${allTravels}" var="travel">
+								<tr id="travel-1">
+									<td class="text-center"><span class="text-danger"><span class="glyphicon glyphicon-flag"></span>&nbsp;</span></td>
+									<td class="text-center">
+										<span id="showBtn-1" onmouseover="this.style.cursor='hand'">${travel.title}</span>
+									</td>
+									<td class="text-center"><fmt:formatDate value="${travel.sdate}" pattern="yyyy-MM-dd"/></td>
+									<td class="text-center"></td>
+									<td class="text-center"></td>
+									<td class="text-center">
+										<a type="button" class="btn btn-primary btn-xs" href="<%=TRAVEL_SUBMIT_URL%>">
+											<span class="glyphicon glyphicon-cloud-upload"></span>&nbsp;提交申请</a>
+										<a type="button" class="btn btn-warning btn-xs" href="<%=TRAVEL_USER_URL%>">
+											<span class="glyphicon glyphicon-user"></span>&nbsp;出差人员</a>
+										<a type="button" class="btn btn-warning btn-xs" href="<%=TRAVEL_COST_URL%>">
+											<span class="glyphicon glyphicon-credit-card"></span>&nbsp;出差费用</a>
+										<a type="button" class="btn btn-info btn-xs" href="<%=TRAVEL_EDIT_URL%>">
+											<span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</a>
+										<a type="button" class="btn btn-danger btn-xs" href="<%=TRAVEL_DELETE_URL%>">
+											<span class="glyphicon glyphicon-remove"></span>&nbsp;删除</a>
+									</td>
+								</tr> 
+							</c:forEach>
 						</tbody>
 					</table>
 					<div id="splitBarDiv" style="float:right">

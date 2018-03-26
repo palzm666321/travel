@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.mldn.travel.service.back.ITravelServiceBack;
 import cn.mldn.travel.vo.Travel;
 import cn.mldn.util.action.abs.AbstractBaseAction;
+import cn.mldn.util.split.ActionSplitPageUtil;
 
 @Controller
 @RequestMapping("/pages/back/admin/travel/*")
@@ -63,6 +64,8 @@ public class TravelActionBack extends AbstractBaseAction {
 	@RequiresPermissions(value = {"travel:self"}, logical = Logical.OR)
 	public ModelAndView listSelf(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView(super.getUrl("travel.self.page"));
+		ActionSplitPageUtil aspu=new ActionSplitPageUtil(request, "申请标题:title", super.getMsg("travel.self.action"));
+		mav.addAllObjects(this.travelServiceBack.listSelf(super.getEid(),aspu.getCurrentPage(), aspu.getLineSize(), aspu.getKeyWord(), aspu.getColumn()));
 		return mav;
 	}
 

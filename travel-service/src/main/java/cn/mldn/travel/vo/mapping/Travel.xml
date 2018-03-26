@@ -6,4 +6,26 @@
 		INSERT INTO travel(seid,iid,title,sdate,edate,dest,audit,note) 
 		VALUES (#{seid},#{iid},#{title},#{sdate},#{edate},#{dest},#{audit},#{note}) ;
 	</insert>
+	
+	<select id="findAllSplit" parameterType="map" resultType="Travel">
+		select tid,seid,iid,title,sdate,edate,dest,audit,note,ecount,total from travel
+		<where>
+			seid=#{seid}
+			<if test="column!=null and keyWord!=null">
+				and ${column} like #{keyWord}
+			</if>
+		</where>
+		order by subdate desc 
+		limit #{start},#{lineSize}
+	</select>
+	
+	<select id="getAllCount" parameterType="map" resultType="long">
+		select count(*) from travel
+		<where>
+			seid=#{seid}
+			<if test="column!=null and keyWord!=null">
+				and ${column} like #{keyWord}
+			</if>
+		</where>
+	</select>
 </mapper>
