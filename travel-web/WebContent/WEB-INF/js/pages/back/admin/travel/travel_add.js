@@ -49,6 +49,14 @@ $(function() {
 			"iid" : {
 				required : true
 			} ,
+			"sdate" : {
+				required : true,
+				date : true
+			} ,
+			"edate" : { 
+				required : true,
+				date : true
+			} ,
 			"destination" : {
 				required : true 
 			},
