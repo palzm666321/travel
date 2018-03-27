@@ -91,8 +91,9 @@ public class TravelActionBack extends AbstractBaseAction {
 	@RequiresUser
 	@RequiresRoles(value = {"travel"}, logical = Logical.OR)
 	@RequiresPermissions(value = {"travel:edit"}, logical = Logical.OR)
-	public ModelAndView editPre() {
+	public ModelAndView editPre(Long tid) {
 		ModelAndView mav = new ModelAndView(super.getUrl("travel.edit.page"));
+		mav.addAllObjects(this.travelServiceBack.editPre(tid));
 		return mav;
 	}
 
@@ -100,12 +101,16 @@ public class TravelActionBack extends AbstractBaseAction {
 	@RequiresUser
 	@RequiresRoles(value = {"travel"}, logical = Logical.OR)
 	@RequiresPermissions(value = {"travel:edit"}, logical = Logical.OR)
-	public ModelAndView edit(HttpServletRequest request) {
+	public ModelAndView edit(HttpServletRequest request,Travel vo) {
 		ModelAndView mav = new ModelAndView(super.getUrl("back.forward.page"));
-		// super.setUrlAndMsg(request, "travel.self.action", "vo.edit.failure",
-		// FLAG);
-		super.setUrlAndMsg(request, "travel.self.action", "vo.edit.success",
-				FLAG);
+		vo.setSeid(super.getEid()); 
+		if (this.travelServiceBack.edit(vo)) {
+			super.setUrlAndMsg(request, "travel.self.action", "vo.edit.success",
+					FLAG);
+		} else {
+			super.setUrlAndMsg(request, "travel.self.action", "vo.edit.failure",
+					FLAG);
+		}
 		return mav;
 	}
 

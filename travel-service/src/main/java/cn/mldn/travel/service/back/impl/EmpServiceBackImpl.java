@@ -14,14 +14,17 @@ import org.springframework.stereotype.Service;
 import cn.mldn.travel.dao.IActionDAO;
 import cn.mldn.travel.dao.IDeptDAO;
 import cn.mldn.travel.dao.IEmpDAO;
+import cn.mldn.travel.dao.IItemDAO;
 import cn.mldn.travel.dao.ILevelDAO;
 import cn.mldn.travel.dao.IRoleDAO;
+import cn.mldn.travel.dao.ITravelDAO;
 import cn.mldn.travel.service.back.IEmpServiceBack;
 import cn.mldn.travel.service.exception.DeptManagerExistException;
 import cn.mldn.travel.service.exception.LevelNotEnoughException;
 import cn.mldn.travel.service.util.abs.AbstractService;
 import cn.mldn.travel.vo.Dept;
 import cn.mldn.travel.vo.Emp;
+import cn.mldn.travel.vo.Travel;
 
 @Service
 public class EmpServiceBackImpl extends AbstractService implements IEmpServiceBack {
@@ -36,6 +39,8 @@ public class EmpServiceBackImpl extends AbstractService implements IEmpServiceBa
 	@Resource
 	private IDeptDAO deptDAO;
 
+	
+	
 	@Override
 	public Map<String, Object> get(String eid, String password) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -219,7 +224,5 @@ public class EmpServiceBackImpl extends AbstractService implements IEmpServiceBa
 		}
 		return true;
 	}
-	
-	
-	
+
 }

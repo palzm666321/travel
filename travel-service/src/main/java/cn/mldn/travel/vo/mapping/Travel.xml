@@ -28,4 +28,14 @@
 			</if>
 		</where>
 	</select>
+	
+	<select id="findById" parameterType="long" resultType="Travel">
+		select tid,seid,iid,title,sdate,edate,dest,audit,note,ecount,total,subdate,auddate,anote,aeid from travel where tid=#{tid}
+	</select>
+	
+	<update id="doUpdate" parameterType="Travel">
+		update travel set title=#{title},iid=#{iid},sdate=#{sdate},edate=#{edate},dest=#{dest},note=#{note} 
+		where tid=#{tid} and seid=#{seid} and audit=9
+	</update>
+	
 </mapper>

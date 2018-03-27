@@ -46,6 +46,9 @@ $(function() {
 //									}
 				//}
 			},
+			"dest" : {
+				required : true
+			} ,
 			"iid" : {
 				required : true
 			} ,
@@ -57,9 +60,6 @@ $(function() {
 				required : true,
 				date : true
 			} ,
-			"destination" : {
-				required : true 
-			},
 			"note" : {
 				required : true
 			}

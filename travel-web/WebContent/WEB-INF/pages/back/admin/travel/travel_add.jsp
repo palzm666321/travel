@@ -37,6 +37,18 @@
 								<!-- 定义表单错误提示显示元素 -->
 								<div class="col-md-4" id="titleMsg"></div>
 							</div>
+								<!-- 定义输入表单样式，其中id主要用于设置颜色样式 -->
+							<div class="form-group" id="destDiv">
+								<!-- 定义表单提示文字 -->
+								<label class="col-md-3 control-label" for="dest">出差目的地：</label>
+								<div class="col-md-5">
+									<!-- 定义表单输入组件 -->
+									<input type="text" id="dest" name="dest" class="form-control"
+										placeholder="请输入出差目的地">
+								</div>
+								<!-- 定义表单错误提示显示元素 -->
+								<div class="col-md-4" id="destMsg"></div>
+							</div>
 							<div class="form-group" id="iidDiv">
 								<!-- 定义表单提示文字 -->
 								<label class="col-md-3 control-label" for="iid">出差类型：</label>

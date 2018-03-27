@@ -1,6 +1,5 @@
 package cn.mldn.travel.service.back;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -11,6 +10,7 @@ import org.apache.shiro.authz.annotation.RequiresRoles;
 import cn.mldn.travel.service.exception.DeptManagerExistException;
 import cn.mldn.travel.service.exception.LevelNotEnoughException;
 import cn.mldn.travel.vo.Emp;
+import cn.mldn.travel.vo.Travel;
 
 public interface IEmpServiceBack {
 	/**

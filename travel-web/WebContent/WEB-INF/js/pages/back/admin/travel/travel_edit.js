@@ -44,12 +44,20 @@ $(function() {
 //									}
 				//}
 			},
+			"dest" : {
+				required : true
+			} ,
+			"sdate" : {
+				required : true,
+				date : true
+			} ,
+			"edate" : { 
+				required : true,
+				date : true
+			} ,
 			"iid" : {
 				required : true
 			} ,
-			"destination" : {
-				required : true 
-			},
 			"note" : {
 				required : true
 			}

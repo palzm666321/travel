@@ -57,7 +57,7 @@
 											<span class="glyphicon glyphicon-user"></span>&nbsp;出差人员</a>
 										<a type="button" class="btn btn-warning btn-xs" href="<%=TRAVEL_COST_URL%>">
 											<span class="glyphicon glyphicon-credit-card"></span>&nbsp;出差费用</a>
-										<a type="button" class="btn btn-info btn-xs" href="<%=TRAVEL_EDIT_URL%>">
+										<a type="button" class="btn btn-info btn-xs" href="<%=TRAVEL_EDIT_URL%>?tid=${travel.tid}">
 											<span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</a>
 										<a type="button" class="btn btn-danger btn-xs" href="<%=TRAVEL_DELETE_URL%>">
 											<span class="glyphicon glyphicon-remove"></span>&nbsp;删除</a>
