@@ -118,13 +118,16 @@ public class TravelActionBack extends AbstractBaseAction {
 	@RequiresUser
 	@RequiresRoles(value = {"travel"}, logical = Logical.OR)
 	@RequiresPermissions(value = {"travel:delete"}, logical = Logical.OR)
-	public ModelAndView delete(HttpServletRequest request) {
+	public ModelAndView delete(HttpServletRequest request,Travel vo) {
 		ModelAndView mav = new ModelAndView(super.getUrl("back.forward.page"));
-		// super.setUrlAndMsg(request, "travel.self.action",
-		// "vo.delete.failure",
-		// FLAG);
-		super.setUrlAndMsg(request, "travel.self.action", "vo.delete.success",
-				FLAG);
+		vo.setSeid(super.getEid()); 
+		if (this.travelServiceBack.delete(vo)) {
+			super.setUrlAndMsg(request, "travel.self.action", "vo.delete.success",
+					FLAG);
+		} else {
+			super.setUrlAndMsg(request, "travel.self.action", "vo.delete.failure",
+					FLAG);
+		}
 		return mav;
 	}
 

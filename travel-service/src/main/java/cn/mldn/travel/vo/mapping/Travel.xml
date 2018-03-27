@@ -38,4 +38,8 @@
 		where tid=#{tid} and seid=#{seid} and audit=9
 	</update>
 	
+	<delete id="doRemoveSelf" parameterType="Travel">
+		delete from travel where tid=#{tid} and seid=#{seid} and (audit=9 or audit=2)
+	</delete>
+	
 </mapper>

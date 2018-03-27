@@ -66,5 +66,10 @@ public class TravelServiceBackImpl extends AbstractService
 		}
 		return false;
 	}
+
+	@Override
+	public boolean delete(Travel vo) {
+		return this.travelDAO.doRemoveSelf(vo);
+	}
 	
 }

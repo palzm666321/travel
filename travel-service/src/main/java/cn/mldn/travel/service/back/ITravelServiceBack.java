@@ -63,4 +63,13 @@ public interface ITravelServiceBack {
 	public boolean edit(Travel vo);
 	
 	
+	/**
+	 * 删除指定的差旅信息项
+	 * @param vo 要删除的差旅信息
+	 * @return 删除成功返回true
+	 */
+	@RequiresRoles(value= {"travel"},logical=Logical.OR)
+	@RequiresPermissions(value= {"travel:delete"},logical=Logical.OR)
+	public boolean delete(Travel vo);
+	
 }
