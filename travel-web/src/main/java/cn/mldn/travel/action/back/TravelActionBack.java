@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.mldn.travel.service.back.ITravelServiceBack;
 import cn.mldn.travel.vo.Dept;
 import cn.mldn.travel.vo.Travel;
+import cn.mldn.travel.vo.TravelEmp;
 import cn.mldn.util.action.abs.AbstractBaseAction;
 import cn.mldn.util.split.ActionSplitPageUtil;
 import net.sf.json.JSONObject;
@@ -178,5 +179,18 @@ public class TravelActionBack extends AbstractBaseAction {
 		super.print(response, json);
 		return null;
 	}
+	
+	@RequestMapping("add_emp")
+	@RequiresUser
+	@RequiresRoles(value = {"travel"}, logical = Logical.OR)
+	@RequiresPermissions(value = {"travel:edit"}, logical = Logical.OR)
+	public ModelAndView addEmp(HttpServletResponse response,TravelEmp vo) {
+		Map<String,Object> map=this.travelServiceBack.addTravelEmp(vo);
+		JSONObject json=new JSONObject();
+		json.putAll(map);
+		super.print(response, json);
+		return null;
+	}
+	
 	
 }

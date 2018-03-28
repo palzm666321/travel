@@ -7,6 +7,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 
 import cn.mldn.travel.vo.Travel;
+import cn.mldn.travel.vo.TravelEmp;
 
 public interface ITravelServiceBack {
 	/**
@@ -98,4 +99,15 @@ public interface ITravelServiceBack {
 	@RequiresPermissions(value= {"travel:edit"},logical=Logical.OR)
 	public Map<String,Object> listByDept(long did,long currentPage,int lineSize,String column,String keyWord);
 	
+	
+	/**
+	 * 进行出差待选人员的配置
+	 * @param vo 包括有出差编号，待选的雇员编号
+	 * @return 返回的结果包含有如下信息；<br>
+	 * 1、key=status、value=是否追加成功的标记（true，false）<br>
+	 * 2、key=emp、value=新增雇员的信息；<br>
+	 * 3、key=dept、value=雇员所在的部门信息；<br>
+	 * 4、key=level、value=级别信息<br>
+	 */
+	public Map<String,Object> addTravelEmp(TravelEmp vo);
 }

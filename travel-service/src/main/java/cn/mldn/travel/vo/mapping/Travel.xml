@@ -42,4 +42,8 @@
 		delete from travel where tid=#{tid} and seid=#{seid} and (audit=9 or audit=2)
 	</delete>
 	
+	<insert id="doCreateTravelEmp" parameterType="TravelEmp">
+		insert into travel_emp(tid,eid)values(#{tid},#{eid});
+	</insert>
+	
 </mapper>

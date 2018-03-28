@@ -22,7 +22,7 @@
 				<div class="panel-body">
 					<button class="btn btn-danger btn-lg" id="addBtn">
 						<span class="glyphicon glyphicon-plus-sign"></span>&nbsp;增加出差人员</button>
-					<table class="table table-condensed">
+					<table class="table table-condensed" id="travelEmpTable">
 						<thead>
 							<tr>
 								<th class="text-center"><strong>照片</strong></th>
@@ -118,6 +118,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
+				<input type="hidden" name="tid" id="tid" value="${param.tid}">
 				<button type="button" class="btn btn-default" data-dismiss="modal">关闭窗口</button>
 			</div>
 		</div>
