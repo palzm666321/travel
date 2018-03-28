@@ -1,7 +1,13 @@
 package cn.mldn.travel.action.back;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -12,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.mldn.travel.service.back.ITravelServiceBack;
+import cn.mldn.travel.vo.Dept;
 import cn.mldn.travel.vo.Travel;
 import cn.mldn.util.action.abs.AbstractBaseAction;
 import cn.mldn.util.split.ActionSplitPageUtil;
+import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("/pages/back/admin/travel/*")
@@ -73,8 +81,19 @@ public class TravelActionBack extends AbstractBaseAction {
 	@RequiresUser
 	@RequiresRoles(value = {"travel"}, logical = Logical.OR)
 	@RequiresPermissions(value = {"travel:edit"}, logical = Logical.OR)
-	public ModelAndView editUser() {
+	public ModelAndView editUser(long tid) {
 		ModelAndView mav = new ModelAndView(super.getUrl("travel.user.page"));
+		Map<String,Object> map=this.travelServiceBack.listEmp(tid);
+		mav.addAllObjects(map);
+		//为了方便进行部门信息的显示将部门信息由List集合变为Map集合
+		List<Dept> allDepts=((List<Dept>)map.get("allDepts"));
+		Map<Long,String> deptMap=new HashMap<Long,String>();
+		Iterator<Dept> it=allDepts.iterator();
+		while(it.hasNext()) {
+			Dept dept=it.next();
+			deptMap.put(dept.getDid(), dept.getDname());
+		}
+		mav.addObject("allDepts", deptMap);
 		return mav;
 	}
 
@@ -143,4 +162,21 @@ public class TravelActionBack extends AbstractBaseAction {
 				"travel.submit.success");
 		return mav;
 	}
+	
+	
+
+	@RequestMapping("emp_dept")
+	@RequiresUser
+	@RequiresRoles(value = {"travel"}, logical = Logical.OR)
+	@RequiresPermissions(value = {"travel:edit"}, logical = Logical.OR)
+	public ModelAndView listDept(HttpServletRequest request,HttpServletResponse response,long did) {
+		JSONObject json=new JSONObject();
+		ActionSplitPageUtil aspu=new ActionSplitPageUtil(request, "", "");
+		Map<String,Object> map=this.travelServiceBack.listByDept(did, aspu.getCurrentPage(), aspu.getLineSize(), aspu.getColumn(), aspu.getKeyWord());
+		json.put("allRecorders", map.get("allRecorders"));
+		json.put("allEmps", map.get("allEmps"));
+		super.print(response, json);
+		return null;
+	}
+	
 }

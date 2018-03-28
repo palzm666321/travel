@@ -7,6 +7,18 @@ import cn.mldn.travel.vo.Emp;
 import cn.mldn.util.dao.IBaseDAO;
 
 public interface IEmpDAO extends IBaseDAO<String, Emp> {
+	
+	public List<Emp> findAllByDept(Map<String,Object> param) ;
+	public Long getAllCountByDept(Map<String,Object> param) ;
+	
+	/**
+	 * 根据差旅编号查询出发布此差旅信息的雇员
+	 * @param tid 差旅编号
+	 * @return 雇员信息
+	 */
+	public Emp findByTravel(long tid) ;
+	
+	
 	/**
 	 * 主要是为了查询出所有的部门的领导信息，所以查询所有雇员信息
 	 * @return 返回所有雇员信息

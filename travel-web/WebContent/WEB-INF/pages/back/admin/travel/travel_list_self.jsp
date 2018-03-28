@@ -18,7 +18,7 @@
 		<!-- 导入左边菜单项 -->
 		<jsp:include page="/WEB-INF/pages/plugins/back/include_menu_item.jsp">
 			<jsp:param name="mi" value="2"/>
-			<jsp:param name="msi" value="23"/>
+			<jsp:param name="msi" value="22"/> 
 		</jsp:include>
 		<div class="content-wrapper text-left">
 			<div class="panel panel-success">
@@ -41,26 +41,44 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${allTravels}" var="travel">
-								<tr id="travel-1">
-									<td class="text-center"><span class="text-danger"><span class="glyphicon glyphicon-flag"></span>&nbsp;</span></td>
+							<c:forEach items="${allTravels}" var="trv">
+								<tr id="travel-${trv.tid}">
 									<td class="text-center">
-										<span id="showBtn-1" onmouseover="this.style.cursor='hand'">${travel.title}</span>
+										<c:if test="${trv.audit==9}">
+											<span class="text-primary"><span class="glyphicon glyphicon-flag"></span>&nbsp;待提交</span>
+										</c:if>
+										<c:if test="${trv.audit==0}">
+											<span class="text-info"><span class="glyphicon glyphicon-flag"></span>&nbsp;审核中</span>
+										</c:if>
+										<c:if test="${trv.audit==1}">
+											<span class="text-success"><span class="glyphicon glyphicon-flag"></span>&nbsp;进行中</span>
+										</c:if>
+										<c:if test="${trv.audit==2}">
+											<span class="text-warning"><span class="glyphicon glyphicon-flag"></span>&nbsp;已拒绝</span>
+										</c:if>
+										<c:if test="${trv.audit==3}">
+											<span class="text-danger"><span class="glyphicon glyphicon-flag"></span>&nbsp;已完成</span>
+										</c:if>
 									</td>
-									<td class="text-center"><fmt:formatDate value="${travel.sdate}" pattern="yyyy-MM-dd"/></td>
-									<td class="text-center"></td>
-									<td class="text-center"></td>
 									<td class="text-center">
-										<a type="button" class="btn btn-primary btn-xs" href="<%=TRAVEL_SUBMIT_URL%>">
-											<span class="glyphicon glyphicon-cloud-upload"></span>&nbsp;提交申请</a>
-										<a type="button" class="btn btn-warning btn-xs" href="<%=TRAVEL_USER_URL%>">
-											<span class="glyphicon glyphicon-user"></span>&nbsp;出差人员</a>
-										<a type="button" class="btn btn-warning btn-xs" href="<%=TRAVEL_COST_URL%>">
-											<span class="glyphicon glyphicon-credit-card"></span>&nbsp;出差费用</a>
-										<a type="button" class="btn btn-info btn-xs" href="<%=TRAVEL_EDIT_URL%>?tid=${travel.tid}">
-											<span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</a>
-										<a type="button" class="btn btn-danger btn-xs" href="<%=TRAVEL_DELETE_URL%>?tid=${travel.tid}">
-											<span class="glyphicon glyphicon-remove"></span>&nbsp;删除</a>
+										<span id="showBtn-${trv.tid}" onmouseover="this.style.cursor='hand'">${trv.title}</span>
+									</td>
+									<td class="text-center"><fmt:formatDate value="${trv.subdate}" pattern="yyyy-MM-dd"/></td>
+									<td class="text-center">${trv.ecount}</td>
+									<td class="text-center">￥${trv.total}</td>
+									<td class="text-center">
+										<c:if test="${trv.audit==9}">
+											<a type="button" class="btn btn-primary btn-xs" href="<%=TRAVEL_SUBMIT_URL%>">
+												<span class="glyphicon glyphicon-cloud-upload"></span>&nbsp;提交申请</a>
+											<a type="button" class="btn btn-warning btn-xs" href="<%=TRAVEL_USER_URL%>?tid=${trv.tid}">
+												<span class="glyphicon glyphicon-user"></span>&nbsp;出差人员</a>
+											<a type="button" class="btn btn-warning btn-xs" href="<%=TRAVEL_COST_URL%>">
+												<span class="glyphicon glyphicon-credit-card"></span>&nbsp;出差费用</a>
+											<a type="button" class="btn btn-info btn-xs" href="<%=TRAVEL_EDIT_URL%>?tid=${trv.tid}">
+												<span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</a>
+											<a type="button" class="btn btn-danger btn-xs" href="<%=TRAVEL_DELETE_URL%>?tid=${trv.tid}">
+												<span class="glyphicon glyphicon-remove"></span>&nbsp;删除</a>
+										</c:if>
 									</td>
 								</tr> 
 							</c:forEach>

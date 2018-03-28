@@ -66,4 +66,34 @@
 		update emp set locked=#{locked},ineid=#{ineid} where eid=#{eid}
 	</update>
 	
+	
+	<select id="findAllByDept" resultType="Emp" parameterType="map">
+		select eid,lid,did,ename,sal,phone,password,photo,note,hiredate,ineid,locked
+		from emp
+		<where>
+			locked!=2 and did=#{did}
+			<if test="column != null and keyWord != null">
+				and ${column} like #{keyWord}
+			</if>
+		</where>
+		order by hiredate desc ,did
+		limit #{start},#{lineSize}
+	</select>
+	
+	<select id="getAllCountByDept" resultType="long" parameterType="map">
+		select count(*) from emp 
+		<where>
+			locked!=2 and did=#{did}
+			<if test="column != null and keyWord != null">
+				and ${column} like #{keyWord}
+			</if>
+		</where>
+	</select>
+
+	<select id="findByTravel" parameterType="long" resultType="Emp">
+		SELECT eid,lid,did,ename,sal,phone,password,photo,note,hiredate,ineid,locked
+		FROM emp
+		WHERE eid=(
+			SELECT seid FROM travel WHERE tid=#{tid})
+	</select>
 </mapper>

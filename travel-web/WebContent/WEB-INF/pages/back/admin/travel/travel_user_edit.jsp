@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="/WEB-INF/pages/plugins/back/back_header.jsp"/>
 <script type="text/javascript" src="js/pages/back/admin/travel/travel_user_edit.js"></script>
+<script type="text/javascript" src="js/split_page.js"></script>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
 		<!-- 导入头部标题栏内容 -->
@@ -75,10 +76,9 @@
 					<label class="col-md-2 control-label" for="did">员工所在部门：</label>
 					<div class="col-md-5">
 						<select id="did" name="did" class="form-control">
-							<option value="">====== 请选择雇员所在部门 ======</option>
-							<option value="10">开发部</option>
-							<option value="10">市场部</option>
-							<option value="10">财务部</option>
+							<c:forEach items="${allDepts}" var="dept">
+								<option value="${dept.key}" ${emp.did==dept.key?"selected":""}>${dept.value}</option>
+							</c:forEach>
 						</select>
 					</div>
 				</div>
@@ -112,6 +112,9 @@
 							</tr> 
 						</tbody>
 					</table>
+				</div>
+				<div id="pageDiv" class="text-right">
+					<ul class="pagination pagination-sm" id="pagecontrol"></ul>
 				</div>
 			</div>
 			<div class="modal-footer">

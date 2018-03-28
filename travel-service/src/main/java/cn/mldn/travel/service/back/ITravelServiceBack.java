@@ -72,4 +72,30 @@ public interface ITravelServiceBack {
 	@RequiresPermissions(value= {"travel:delete"},logical=Logical.OR)
 	public boolean delete(Travel vo);
 	
+	/**
+	 * 根据指定的出差编号列出该出差操作中所有的员工信息以及所有的部门信息
+	 * @param tid 差旅编号
+	 * @return 返回如下数据
+	 * 1、key=allDepts，value=所有的部门信息；
+	 * 2、key=emp，value=出差发布者的雇员信息
+	 */
+	@RequiresRoles(value= {"travel"},logical=Logical.OR)
+	@RequiresPermissions(value= {"travel:edit"},logical=Logical.OR)
+	public Map<String,Object> listEmp(long tid);
+	
+	/**
+	 * 进行出差人员配置的信息加载处理
+	 * @param did 部门编号
+	 * @param currentPage 页
+	 * @param lineSize 行
+	 * @param column 列
+	 * @param keyWord 关键字
+	 * @return 返回如下数据内容；<br>
+	 * 1、key=allEmps，value=所有的雇员信息；
+	 * 2、key=allRecorders，value=雇员个数
+	 */
+	@RequiresRoles(value= {"travel"},logical=Logical.OR)
+	@RequiresPermissions(value= {"travel:edit"},logical=Logical.OR)
+	public Map<String,Object> listByDept(long did,long currentPage,int lineSize,String column,String keyWord);
+	
 }

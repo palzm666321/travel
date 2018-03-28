@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import cn.mldn.travel.dao.IDeptDAO;
+import cn.mldn.travel.dao.IEmpDAO;
 import cn.mldn.travel.dao.IItemDAO;
 import cn.mldn.travel.dao.ITravelDAO;
 import cn.mldn.travel.service.back.ITravelServiceBack;
@@ -20,6 +22,12 @@ public class TravelServiceBackImpl extends AbstractService
 	private IItemDAO itemDAO ;
 	@Resource
 	private ITravelDAO travelDAO ;
+	@Resource
+	private IDeptDAO deptDAO;
+	@Resource
+	private IEmpDAO empDAO;
+	
+	
 	@Override
 	public Map<String, Object> addPre() {
 		Map<String,Object> map = new HashMap<String,Object>() ;
@@ -71,5 +79,22 @@ public class TravelServiceBackImpl extends AbstractService
 	public boolean delete(Travel vo) {
 		return this.travelDAO.doRemoveSelf(vo);
 	}
+
+	@Override
+	public Map<String, Object> listEmp(long tid) {
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("allDepts", this.deptDAO.findAll());
+		map.put("emp", this.empDAO.findByTravel(tid));
+		return map;
+	}
 	
+	@Override
+	public Map<String, Object> listByDept(long did, long currentPage, int lineSize, String column, String keyWord) {
+		Map<String,Object> map=new HashMap<String,Object>();
+		Map<String,Object> param=super.handleParam(currentPage, lineSize, column, keyWord);
+		param.put("did", did);
+		map.put("allEmps", this.empDAO.findAllByDept(param));
+		map.put("allRecorders", this.empDAO.getAllCountByDept(param));
+		return map;
+	}
 }
