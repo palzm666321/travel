@@ -90,6 +90,8 @@ public class TravelServiceBackImpl extends AbstractService
 		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("allDepts", this.deptDAO.findAll());
 		map.put("emp", this.empDAO.findByTravel(tid));
+		map.put("allEmps", this.empDAO.findAllByTravel(tid));
+		map.put("allLevels", this.levelDAO.findAll());
 		return map;
 	}
 	

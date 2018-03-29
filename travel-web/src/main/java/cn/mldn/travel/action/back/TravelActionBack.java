@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.mldn.travel.service.back.ITravelServiceBack;
 import cn.mldn.travel.vo.Dept;
+import cn.mldn.travel.vo.Level;
 import cn.mldn.travel.vo.Travel;
 import cn.mldn.travel.vo.TravelEmp;
 import cn.mldn.util.action.abs.AbstractBaseAction;
@@ -94,7 +95,15 @@ public class TravelActionBack extends AbstractBaseAction {
 			Dept dept=it.next();
 			deptMap.put(dept.getDid(), dept.getDname());
 		}
+		List<Level> allLevels=((List<Level>)map.get("allLevels"));
+		Map<String,String> levelMap=new HashMap<String,String>();
+		Iterator<Level> iter=allLevels.iterator();
+		while(iter.hasNext()) {
+			Level lev=iter.next();
+			levelMap.put(lev.getLid(), lev.getTitle());
+		}
 		mav.addObject("allDepts", deptMap);
+		mav.addObject("allLevels", levelMap);
 		return mav;
 	}
 

@@ -43,7 +43,7 @@ function addTableRow(photo,eid,ename,sal,lid) {
 		$.post("pages/back/admin/travel/add_emp.action",{"eid":eid,"tid":tid},function(data){
 			if(data.flag==true){//待出发用户添加完成
 				$("#travelEmp-"+eid).remove();
-					rowInfo = 	"<tr id='travel-1'>" + 
+					rowInfo = 	"<tr id='travel-"+eid+"'>" + 
 					"	<td class='text-center'>" +
 					"		<img src='upload/member/"+data.emp.photo+"' style='width:20px;'/> " +
 					"	</td>" +

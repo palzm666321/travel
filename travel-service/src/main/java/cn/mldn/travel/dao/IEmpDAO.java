@@ -47,4 +47,12 @@ public interface IEmpDAO extends IBaseDAO<String, Emp> {
 	 * @return 更新成功返回true
 	 */
 	public boolean doUpdateLocked(Emp vo);
+	
+	/**
+	 * 根据指定的出差的编号信息，列出该出差任务所需要的所有雇员信息
+	 * @param tid 出差编号
+	 * @return 返回所有的出差人员信息
+	 */
+	public List<Emp> findAllByTravel(long tid);
+	
 }

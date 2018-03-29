@@ -110,4 +110,6 @@ public interface ITravelServiceBack {
 	 * 4、key=level、value=级别信息<br>
 	 */
 	public Map<String,Object> addTravelEmp(TravelEmp vo);
+	
+	
 }

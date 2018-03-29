@@ -35,20 +35,22 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr id="travel-1">
-								<td class="text-center">
-									<img src="upload/member/nophoto.png" style="width:20px;"/> 
-								</td>
-								<td class="text-center">7369</td>
-								<td class="text-center">老李</td>
-								<td class="text-center">￥8923.23</td>
-								<td class="text-center">一级员工</td>
-								<td class="text-center">开发部</td>
-								<td class="text-center">
-									<button class="btn btn-danger btn-xs" id="remove-1">
-										<span class="glyphicon glyphicon-remove"></span>&nbsp;移除</button>
-								</td>
-							</tr> 
+						<c:forEach items="${allEmps}" var="vo">
+								<tr id="travel-${vo.eid}">
+									<td class="text-center">
+										<img src="upload/member/${vo.photo}" style="width:20px;"/> 
+									</td>
+									<td class="text-center">${vo.eid}</td>
+									<td class="text-center">${vo.ename}</td>
+									<td class="text-center">￥${vo.sal}</td>
+									<td class="text-center">${allLevels[vo.lid]}</td>
+									<td class="text-center">${allDepts[vo.did]}</td>
+									<td class="text-center">
+										<button class="btn btn-danger btn-xs" id="remove-${vo.eid}-${param.tid}">
+											<span class="glyphicon glyphicon-remove"></span>&nbsp;移除</button>
+									</td>
+								</tr> 
+							</c:forEach>
 						</tbody>
 					</table>
 					<div id="splitBarDiv" style="float:right">
