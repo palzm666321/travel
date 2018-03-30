@@ -111,5 +111,11 @@ public interface ITravelServiceBack {
 	 */
 	public Map<String,Object> addTravelEmp(TravelEmp vo);
 	
+	/**
+	 * 删除指定的出差人员信息
+	 * @param vo 包括出差编号，待选的雇员编号
+	 * @return 删除成功返回true
+	 */
+	public boolean deleteTravelEmp(TravelEmp vo);
 	
 }

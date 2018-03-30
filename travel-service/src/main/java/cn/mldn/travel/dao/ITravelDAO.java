@@ -19,5 +19,11 @@ public interface ITravelDAO extends IBaseDAO<Long, Travel> {
 	 */
 	public boolean doCreateTravelEmp(TravelEmp vo);
 	
+	/**
+	 * 进行travel_emp表的删除处理，根据差旅编号和雇员编号删除
+	 * @param vo 包含有差旅编号，出差待选编号
+	 * @return 删除成功返回true
+	 */
+	public boolean doRemoveTravelEmp(TravelEmp vo);
 	
 }

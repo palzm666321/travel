@@ -159,6 +159,19 @@ public class TravelActionBack extends AbstractBaseAction {
 		}
 		return mav;
 	}
+	
+	
+	@RequestMapping("delete_emp")
+	@RequiresUser
+	@RequiresRoles(value = {"travel"}, logical = Logical.OR)
+	@RequiresPermissions(value = {"travel:edit"}, logical = Logical.OR)
+	public ModelAndView deleteEmp(HttpServletResponse response,TravelEmp vo) {
+		JSONObject json=new JSONObject();
+		json.put("stauts", this.travelServiceBack.deleteTravelEmp(vo));
+		System.err.println(vo);
+		super.print(response, json);
+		return null;
+	}
 
 	@RequestMapping("submit")
 	@RequiresUser

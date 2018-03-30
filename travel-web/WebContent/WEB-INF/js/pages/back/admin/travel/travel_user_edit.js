@@ -1,4 +1,13 @@
 did = 1 ;
+
+function deleteEmpFun(eid,tid){
+//	console.log(eid+"="+tid);
+	$.post("pages/back/admin/travel/delete_emp.action",{"tid":tid,"eid":eid},function(data){
+		$("#travel-"+eid).remove();
+		operateAlert(data.stauts,"出差人员信息移除成功！","出差人员信息移除失败！");
+	},"json");
+}
+
 function loadData() {	// 该函数名称一定要固定，不许修改
 	// 如果要想进行分页的处理列表前首先查询出部门编号
 	did = $("#did").val() ;	// 取得指定组件的value
@@ -58,11 +67,22 @@ function addTableRow(photo,eid,ename,sal,lid) {
 					"	</td>" +
 					"</tr> " ;
 					$("#travelEmpTable").append(rowInfo);
+					$("#remove-"+data.emp.eid+"-"+tid).on("click",function(){
+						deleteEmpFun(eid,tid) ;
+					}) ;
 			}
 		},"json");
 	});
 }
 $(function(){
+	$("button[id^=remove-]").each(function(){
+		$(this).on("click",function(){
+			eid=this.id.substring(this.id.indexOf("-")+1,this.id.lastIndexOf("-"));
+			tid=this.id.substring(this.id.lastIndexOf("-")+1);
+	//		console.log(eid);
+			deleteEmpFun(eid,tid);
+		})
+	});
 	$("#did").on("change",function(){
 		did = $(this).val() ;
 		loadData() ;

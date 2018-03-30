@@ -120,5 +120,9 @@ public class TravelServiceBackImpl extends AbstractService
 		return map;
 	}
 	
+	@Override
+	public boolean deleteTravelEmp(TravelEmp vo) {
+		return this.travelDAO.doRemoveTravelEmp(vo);
+	}
 	
 }

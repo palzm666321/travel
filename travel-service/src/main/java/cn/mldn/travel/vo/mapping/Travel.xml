@@ -46,4 +46,8 @@
 		insert into travel_emp(tid,eid)values(#{tid},#{eid});
 	</insert>
 	
+	<delete id="doRemoveTravelEmp" parameterType="TravelEmp">
+		delete from travel_emp where tid=#{tid} and eid=#{eid}
+	</delete>
+	
 </mapper>
