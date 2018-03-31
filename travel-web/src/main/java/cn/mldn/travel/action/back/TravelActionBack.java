@@ -192,10 +192,10 @@ public class TravelActionBack extends AbstractBaseAction {
 	@RequiresUser
 	@RequiresRoles(value = {"travel"}, logical = Logical.OR)
 	@RequiresPermissions(value = {"travel:edit"}, logical = Logical.OR)
-	public ModelAndView listDept(HttpServletRequest request,HttpServletResponse response,long did) {
+	public ModelAndView listDept(HttpServletRequest request,HttpServletResponse response,long did,long tid) {
 		JSONObject json=new JSONObject();
 		ActionSplitPageUtil aspu=new ActionSplitPageUtil(request, "", "");
-		Map<String,Object> map=this.travelServiceBack.listByDept(did, aspu.getCurrentPage(), aspu.getLineSize(), aspu.getColumn(), aspu.getKeyWord());
+		Map<String,Object> map=this.travelServiceBack.listByDept(tid,did, aspu.getCurrentPage(), aspu.getLineSize(), aspu.getColumn(), aspu.getKeyWord());
 		json.put("allRecorders", map.get("allRecorders"));
 		json.put("allEmps", map.get("allEmps"));
 		super.print(response, json);

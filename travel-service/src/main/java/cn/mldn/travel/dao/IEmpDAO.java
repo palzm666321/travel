@@ -55,4 +55,11 @@ public interface IEmpDAO extends IBaseDAO<String, Emp> {
 	 */
 	public List<Emp> findAllByTravel(long tid);
 	
+	/**
+	 * 根据差旅安排判断指定的雇员信息是否可用
+	 * @param param 包含了差旅相关信息
+	 * @return 如果该雇员可以安排差旅返回雇员信息，如果不能返回null
+	 */
+	public Emp findTravelById(Map<String,Object> param);
+	
 }

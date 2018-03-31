@@ -118,4 +118,22 @@ public interface ITravelServiceBack {
 	 */
 	public boolean deleteTravelEmp(TravelEmp vo);
 	
+	/**
+	 * 进行出差人员配置的信息加载处理
+	 * @param tid 本次编辑的差旅信息编号
+	 * @param did 部门编号
+	 * @param currentPage 页
+	 * @param lineSize 行
+	 * @param column 列
+	 * @param keyWord 关键字
+	 * @return 返回如下内容;<br>
+	 * 1、key=allEmps，value=所有雇员的信息；<br>
+	 * 1、key=allRecorders，value=雇员的个数。
+	 */
+	@RequiresRoles(value= {"travel"},logical=Logical.OR)
+	@RequiresPermissions(value= {"travel:edit"},logical=Logical.OR)
+	public Map<String,Object> listByDept(long tid,long did,long currentPage,int lineSize,String column,String keyWord);
+	
+	
+	
 }

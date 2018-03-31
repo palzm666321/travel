@@ -65,30 +65,6 @@
 	<update id="doUpdateLocked" parameterType="Emp">
 		update emp set locked=#{locked},ineid=#{ineid} where eid=#{eid}
 	</update>
-	
-	
-	<select id="findAllByDept" resultType="Emp" parameterType="map">
-		select eid,lid,did,ename,sal,phone,password,photo,note,hiredate,ineid,locked
-		from emp
-		<where>
-			locked!=2 and did=#{did}
-			<if test="column != null and keyWord != null">
-				and ${column} like #{keyWord}
-			</if>
-		</where>
-		order by hiredate desc ,did
-		limit #{start},#{lineSize}
-	</select>
-	
-	<select id="getAllCountByDept" resultType="long" parameterType="map">
-		select count(*) from emp 
-		<where>
-			locked!=2 and did=#{did}
-			<if test="column != null and keyWord != null">
-				and ${column} like #{keyWord}
-			</if>
-		</where>
-	</select>
 
 	<select id="findByTravel" parameterType="long" resultType="Emp">
 		select eid,lid,did,ename,sal,phone,password,photo,note,hiredate,ineid,locked
@@ -104,4 +80,67 @@
 		where eid in (
 			select eid from travel_emp where tid=#{tid})
 	</select>
+	
+	<select id="findAllByDept" resultType="Emp" parameterType="map">
+		select eid,lid,did,ename,sal,phone,password,photo,note,hiredate,ineid,locked
+		from emp
+		<where>
+			locked!=2 and did=#{did} 
+			and eid not in(
+			select eid 
+			from travel_emp 
+			where tid in (
+				select tid 
+				from travel 
+				where ((sdate &gt;=#{sdate} and sdate &lt;= #{edate}) 
+				or (edate &gt;= #{sdate} and edate &lt;= #{edate})) or (
+				sdate &lt; #{sdate} and edate &gt; #{edate})
+				)			
+			)
+			<if test="column!=null and keyWord!=null">
+				and ${column} like #{keyWord}
+			</if>
+		</where>
+		order by hiredate desc ,did 
+		limit #{start},#{lineSize}
+	</select>
+	
+	<select id="getAllCountByDept" resultType="long" parameterType="map">
+		select count(*) from emp 
+		<where>
+			locked!=2 and did=#{did} 
+			and eid not in(
+				select eid 
+				from travel_emp 
+				where tid in(
+					select tid 
+					from travel 
+					where ((sdate &gt;= #{sdate} and sdate &lt;= #{edate})
+				 	or (edate &gt;= #{sdate} and edate &lt;= #{edate})) or 
+				 	(sdate &lt; #{sdate} and edate &gt; #{edate})
+				)
+			)
+			<if test="column!=null and keyWord!=null">
+				and ${column} like #{keyWord}
+			</if>
+		</where>
+	</select>
+	
+	
+	<select id="findTravelById" resultType="Emp" parameterType="map">
+		select eid,lid,did,ename,sal,phone,password,photo,note,hiredate,ineid,locked
+		from emp 
+		where eid not in (
+			select eid 
+			from travel_emp 
+			where tid in ( 
+				select tid 
+				from travel 
+				where ((sdate &gt;= #{sdate} and sdate &lt;= #{edate})
+			 	or (edate &gt;= #{sdate} and edate &lt;= #{edate})) or 
+			 	(sdate &lt; #{sdate} and edate &gt; #{edate})
+			)
+		) and eid=#{eid}
+	</select>
+	
 </mapper>

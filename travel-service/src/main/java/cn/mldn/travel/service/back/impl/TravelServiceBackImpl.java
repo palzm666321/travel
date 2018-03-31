@@ -109,14 +109,23 @@ public class TravelServiceBackImpl extends AbstractService
 	@Override
 	public Map<String, Object> addTravelEmp(TravelEmp vo) {
 		Map<String,Object> map=new HashMap<String,Object>();
-		boolean flag=this.travelDAO.doCreateTravelEmp(vo);//保存出差雇员安全信息
-		if(flag) {//现在出错安排信息保存成功，可以查询要出错雇员的信息
-			Emp emp=this.empDAO.findById(vo.getEid());
-			map.put("emp", emp);//出差雇员详情
-			map.put("dept", this.deptDAO.findById(emp.getDid()));
-			map.put("level", this.levelDAO.findById(emp.getLid()));
+		Map<String,Object> param=new HashMap<String,Object>();
+		boolean status=false;
+		//查询出出差相关信息
+		Travel currentTravel = this.travelDAO.findById(vo.getTid());
+		param.put("sdate", currentTravel.getSdate());
+		param.put("edate", currentTravel.getEdate());
+		param.put("eid", vo.getEid());
+		if(this.empDAO.findTravelById(param)!=null) {//该雇员现在没有出差安排，可用
+			status=this.travelDAO.doCreateTravelEmp(vo); // 保存出差雇员安排信息
+			if(status) {//现在出错安排信息保存成功，可以查询要出错雇员的信息
+				Emp emp=this.empDAO.findById(vo.getEid());
+				map.put("emp", emp);//出差雇员详情
+				map.put("dept", this.deptDAO.findById(emp.getDid()));
+				map.put("level", this.levelDAO.findById(emp.getLid()));
+			}
 		}
-		map.put("flag", flag);
+		map.put("status", status);
 		return map;
 	}
 	
@@ -124,5 +133,21 @@ public class TravelServiceBackImpl extends AbstractService
 	public boolean deleteTravelEmp(TravelEmp vo) {
 		return this.travelDAO.doRemoveTravelEmp(vo);
 	}
+	
+	
+	@Override
+	public Map<String, Object> listByDept(long tid, long did, long currentPage, int lineSize, String column,
+			String keyWord) {
+		Map<String,Object> map=new HashMap<String,Object>();
+		Map<String,Object> param=super.handleParam(currentPage, lineSize, column, keyWord);
+		Travel currenTravel=this.travelDAO.findById(tid);//取得当前操作的Travel，目的是为了取得日期
+		param.put("did", did);
+		param.put("sdate", currenTravel.getSdate());
+		param.put("edate", currenTravel.getEdate());
+		map.put("allEmps", this.empDAO.findAllByDept(param));
+		map.put("allRecorders", this.empDAO.getAllCountByDept(param));
+		return map;
+	}
+	
 	
 }
