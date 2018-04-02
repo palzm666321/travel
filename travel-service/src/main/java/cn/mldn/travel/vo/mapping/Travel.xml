@@ -54,4 +54,8 @@
 		insert into travel_cost (tpid,tid,price,title) values (#{tpid},#{tid},#{price},#{title})
 	</insert>
 	
+	<select id="findAllTravelCost" parameterType="long" resultType="TravelCost">
+		select tcid,tpid,tid,price,title from travel_cost where tid=#{tid}
+	</select>
+	
 </mapper>

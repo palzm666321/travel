@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class Type implements Serializable {
-	private String tpid ;
+	private Long tpid ;
 	private String title ;
-	public String getTpid() {
+	public Long getTpid() {
 		return tpid;
 	}
-	public void setTpid(String tpid) {
+	public void setTpid(Long tpid) {
 		this.tpid = tpid;
 	}
 	public String getTitle() {

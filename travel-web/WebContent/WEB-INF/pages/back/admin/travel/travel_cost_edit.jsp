@@ -31,17 +31,19 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr id="travel-1">
-								<td class="text-center">房费</td>
-								<td class="text-center">￥<span id="price-1">3000</span></td>
-								<td class="text-center">三间房屋十天费用</td>
-								<td class="text-center">
-									<button class="btn btn-warning btn-xs" id="edit-1">
-										<span class="glyphicon glyphicon-pencil"></span>&nbsp;修改</button>
-									<button class="btn btn-danger btn-xs" id="remove-1">
-										<span class="glyphicon glyphicon-remove"></span>&nbsp;移除</button>
-								</td>
-							</tr> 
+							<c:forEach items="${allCosts}" var="cost">
+								<tr id="travel-${cost.tcid}">
+									<td class="text-center">${allTypes[cost.tpid]}</td>
+									<td class="text-center">￥<span id="price-${cost.tcid}">${cost.price}</span></td>
+									<td class="text-center">${cost.title}</td>
+									<td class="text-center">
+										<button class="btn btn-warning btn-xs" id="edit-${cost.tcid}">
+											<span class="glyphicon glyphicon-pencil"></span>&nbsp;修改</button>
+										<button class="btn btn-danger btn-xs" id="remove-${cost.tcid}">
+											<span class="glyphicon glyphicon-remove"></span>&nbsp;移除</button>
+									</td>
+								</tr> 
+							</c:forEach>
 						</tbody>
 					</table>
 					<div id="splitBarDiv" style="float:right">
@@ -90,7 +92,7 @@
 								<select id="tpid" name="tpid" class="form-control">
 									<option value="">====== 请选择费用类型 ======</option>
 								<c:forEach items="${allTypes}" var="type">
-									<option value="${type.tpid}">${type.title}</option>
+									<option value="${type.key}">${type.value}</option>
 								</c:forEach>
 								</select>
 							</div>

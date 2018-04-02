@@ -139,7 +139,8 @@ public interface ITravelServiceBack {
 	 * 实现添加前的费用列表显示
 	 * @param tid 差旅信息编号
 	 * @return 返回如下内容；<br>
-	 * 1、key=费用编号，value=费用名称；<br>
+	 * 1、key=allTypes，value=所有费用分类；<br>
+	 * 2、key=allCosts、value=所有的支出信息。
 	 */
 	@RequiresRoles(value= {"travel"},logical=Logical.OR)
 	@RequiresPermissions(value= {"travel:edit"},logical=Logical.OR)
@@ -156,5 +157,6 @@ public interface ITravelServiceBack {
 	@RequiresRoles(value= {"travel"},logical=Logical.OR)
 	@RequiresPermissions(value= {"travel:edit"},logical=Logical.OR)
 	public Map<String,Object> addCost(TravelCost vo);
+	
 	
 }

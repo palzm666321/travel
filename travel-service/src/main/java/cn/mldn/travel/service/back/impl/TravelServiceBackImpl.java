@@ -156,6 +156,7 @@ public class TravelServiceBackImpl extends AbstractService
 	public Map<String, Object> listCost(long tid) {
 		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("allTypes", this.typeDAO.findAll());
+		map.put("allCosts", this.travelDAO.findAllTravelCost(tid));
 		return map;
 	}
 	

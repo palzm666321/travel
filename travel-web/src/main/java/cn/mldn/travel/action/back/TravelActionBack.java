@@ -23,6 +23,7 @@ import cn.mldn.travel.vo.Level;
 import cn.mldn.travel.vo.Travel;
 import cn.mldn.travel.vo.TravelCost;
 import cn.mldn.travel.vo.TravelEmp;
+import cn.mldn.travel.vo.Type;
 import cn.mldn.util.action.abs.AbstractBaseAction;
 import cn.mldn.util.split.ActionSplitPageUtil;
 import net.sf.json.JSONObject;
@@ -114,7 +115,16 @@ public class TravelActionBack extends AbstractBaseAction {
 	@RequiresPermissions(value = {"travel:edit"}, logical = Logical.OR)
 	public ModelAndView editCost(long tid) {
 		ModelAndView mav = new ModelAndView(super.getUrl("travel.cost.page"));
-		mav.addAllObjects(this.travelServiceBack.listCost(tid));
+		Map<String,Object> map=this.travelServiceBack.listCost(tid);
+		mav.addAllObjects(map);
+		List<Type> allTypes=(List<Type>)map.get("allTypes");
+		Iterator<Type> iter=allTypes.iterator();
+		Map<Long,String> typeMap=new HashMap<Long,String>();
+		while(iter.hasNext()) {
+			Type type=iter.next();
+			typeMap.put(type.getTpid(), type.getTitle());
+		}
+		mav.addObject("allTypes", typeMap);
 		return mav;
 	}
 

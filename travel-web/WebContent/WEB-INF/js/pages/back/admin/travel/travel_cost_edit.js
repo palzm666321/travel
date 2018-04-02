@@ -1,4 +1,13 @@
 var myform ;
+
+function calcTotal(){
+	total=0.0;
+	$("span[id^=price-]").each(function(){
+		total += parseFloat($(this).text());
+	});
+	$(allPrice).text(total);
+}
+
 function clearCostModal() {
 	$(title).val("") ;
 	$(price).val("") ;
@@ -8,6 +17,7 @@ function clearCostModal() {
 	myform.resetForm() ; 
 }
 $(function(){
+	calcTotal();
 	$(addBtn).on("click",function(){
 		clearCostModal() ;
 		// Ajax异步读取用户信息
@@ -40,6 +50,7 @@ $(function(){
 							"	</td>"+
 							"</tr> ";
 					$("#costTable").append(costInfo) ;
+					calcTotal();
 				}
 				$("#costInfo").modal("toggle") ;
 				operateAlert(data.status,"支出项追加成功！" , "支出项追加失败！") ;
