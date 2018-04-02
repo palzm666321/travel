@@ -7,4 +7,8 @@
 		select tpid,title from type 
 	</select>
 
+	<select id="findById" resultType="Type" parameterType="long">
+		select tpid,title from type where tpid=#{tpid}
+	</select>
+
 </mapper>

@@ -7,6 +7,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 
 import cn.mldn.travel.vo.Travel;
+import cn.mldn.travel.vo.TravelCost;
 import cn.mldn.travel.vo.TravelEmp;
 
 public interface ITravelServiceBack {
@@ -134,9 +135,26 @@ public interface ITravelServiceBack {
 	@RequiresPermissions(value= {"travel:edit"},logical=Logical.OR)
 	public Map<String,Object> listByDept(long tid,long did,long currentPage,int lineSize,String column,String keyWord);
 	
-	
+	/**
+	 * 实现添加前的费用列表显示
+	 * @param tid 差旅信息编号
+	 * @return 返回如下内容；<br>
+	 * 1、key=费用编号，value=费用名称；<br>
+	 */
 	@RequiresRoles(value= {"travel"},logical=Logical.OR)
 	@RequiresPermissions(value= {"travel:edit"},logical=Logical.OR)
 	public Map<String, Object> listCost(long tid);
+	
+	/**
+	 * 实现出差费用项的添加操作
+	 * @param vo 出差费用信息
+	 * @return 返回如下信息结果；<br>
+	 * 1、key=status、value=保存成功或失败的标记；<br>
+	 * 2、key=cost、value=出差信息项；<br>
+	 * 3、key=type、value=出差信息分类；<br>
+	 */
+	@RequiresRoles(value= {"travel"},logical=Logical.OR)
+	@RequiresPermissions(value= {"travel:edit"},logical=Logical.OR)
+	public Map<String,Object> addCost(TravelCost vo);
 	
 }

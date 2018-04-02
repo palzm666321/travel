@@ -17,6 +17,7 @@ import cn.mldn.travel.service.back.ITravelServiceBack;
 import cn.mldn.travel.service.util.abs.AbstractService;
 import cn.mldn.travel.vo.Emp;
 import cn.mldn.travel.vo.Travel;
+import cn.mldn.travel.vo.TravelCost;
 import cn.mldn.travel.vo.TravelEmp;
 @Service
 public class TravelServiceBackImpl extends AbstractService
@@ -158,5 +159,16 @@ public class TravelServiceBackImpl extends AbstractService
 		return map;
 	}
 	
+	@Override
+	public Map<String, Object> addCost(TravelCost vo) {
+		Map<String,Object> map=new HashMap<String,Object>();
+		boolean status=this.travelDAO.doCreateTravelCost(vo);
+		if(status) {
+			map.put("cost", vo);
+			map.put("type", this.typeDAO.findById(vo.getTcid()));
+		}
+		map.put("status",status);
+		return map;
+	}
 	
 }

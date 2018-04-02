@@ -21,7 +21,7 @@
 				<div class="panel-body">
 					<button class="btn btn-danger btn-lg" id="addBtn">
 						<span class="glyphicon glyphicon-plus-sign"></span>&nbsp;增加费用项</button>
-					<table class="table table-condensed">
+					<table class="table table-condensed" id="costTable">
 						<thead>
 							<tr>
 								<th class="text-center"><strong>支出类型</strong></th>
@@ -83,11 +83,11 @@
 							<!-- 定义表单错误提示显示元素 -->
 							<div class="col-md-4" id="titleMsg"></div>
 						</div>
-						<div class="form-group" id="tidDiv">
+						<div class="form-group" id="tpidDiv">
 							<!-- 定义表单提示文字 -->
-							<label class="col-md-3 control-label" for="tid">费用类型：</label>
+							<label class="col-md-3 control-label" for="tpid">费用类型：</label>
 							<div class="col-md-5">
-								<select id="tid" name="tid" class="form-control">
+								<select id="tpid" name="tpid" class="form-control">
 									<option value="">====== 请选择费用类型 ======</option>
 								<c:forEach items="${allTypes}" var="type">
 									<option value="${type.tpid}">${type.title}</option>
@@ -95,7 +95,7 @@
 								</select>
 							</div>
 							<!-- 定义表单错误提示显示元素 -->
-							<div class="col-md-4" id="iidMsg"></div>
+							<div class="col-md-4" id="tpidMsg"></div>
 						</div>
 						<div class="form-group" id="priceDiv">
 							<!-- 定义表单提示文字 -->
@@ -110,6 +110,7 @@
 						</div>
 						<div class="form-group">
 							<div class="col-md-5 col-md-offset-3">
+								<input type="hidden" id="tid" name="tid" value="${param.tid}">
 								<button type="submit" class="btn btn-primary">增加</button>
 								<button type="reset" class="btn btn-warning">重置</button>
 							</div>

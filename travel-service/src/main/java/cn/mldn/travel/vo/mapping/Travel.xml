@@ -50,4 +50,8 @@
 		delete from travel_emp where tid=#{tid} and eid=#{eid}
 	</delete>
 	
+	<insert id="doCreateTravelCost" parameterType="TravelCost" useGeneratedKeys="true" keyProperty="tcid">
+		insert into travel_cost (tpid,tid,price,title) values (#{tpid},#{tid},#{price},#{title})
+	</insert>
+	
 </mapper>

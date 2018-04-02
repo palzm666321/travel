@@ -1,6 +1,7 @@
 package cn.mldn.travel.dao;
 
 import cn.mldn.travel.vo.Travel;
+import cn.mldn.travel.vo.TravelCost;
 import cn.mldn.travel.vo.TravelEmp;
 import cn.mldn.util.dao.IBaseDAO;
 
@@ -25,5 +26,12 @@ public interface ITravelDAO extends IBaseDAO<Long, Travel> {
 	 * @return 删除成功返回true
 	 */
 	public boolean doRemoveTravelEmp(TravelEmp vo);
+	
+	/**
+	 * 增加出差花费的信息项，需要考虑增长后的id问题
+	 * @param vo 费用信息
+	 * @return 保存成功返回true
+	 */
+	public boolean doCreateTravelCost(TravelCost vo);
 	
 }

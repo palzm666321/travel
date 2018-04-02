@@ -21,6 +21,7 @@ import cn.mldn.travel.service.back.ITravelServiceBack;
 import cn.mldn.travel.vo.Dept;
 import cn.mldn.travel.vo.Level;
 import cn.mldn.travel.vo.Travel;
+import cn.mldn.travel.vo.TravelCost;
 import cn.mldn.travel.vo.TravelEmp;
 import cn.mldn.util.action.abs.AbstractBaseAction;
 import cn.mldn.util.split.ActionSplitPageUtil;
@@ -198,7 +199,7 @@ public class TravelActionBack extends AbstractBaseAction {
 		Map<String,Object> map=this.travelServiceBack.listByDept(tid,did, aspu.getCurrentPage(), aspu.getLineSize(), aspu.getColumn(), aspu.getKeyWord());
 		json.put("allRecorders", map.get("allRecorders"));
 		json.put("allEmps", map.get("allEmps"));
-		super.print(response, json);
+		super.print(response, json); 
 		return null;
 	}
 	
@@ -213,6 +214,18 @@ public class TravelActionBack extends AbstractBaseAction {
 		super.print(response, json);
 		return null;
 	}
+	
+	@RequestMapping("add_cost")
+	@RequiresUser
+	@RequiresRoles(value = {"travel"}, logical = Logical.OR)
+	@RequiresPermissions(value = {"travel:edit"}, logical = Logical.OR)
+	public ModelAndView addCost(HttpServletResponse response,TravelCost vo) {
+		JSONObject json=new JSONObject();
+		json.putAll(this.travelServiceBack.addCost(vo));
+		super.print(response, json);
+		return null;
+	}
+	
 	
 
 	
