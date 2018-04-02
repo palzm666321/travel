@@ -11,7 +11,7 @@
 		<!-- 导入左边菜单项 -->
 		<jsp:include page="/WEB-INF/pages/plugins/back/include_menu_item.jsp">
 			<jsp:param name="mi" value="2"/>
-			<jsp:param name="msi" value="23"/>
+			<jsp:param name="msi" value="22"/>
 		</jsp:include>
 		<div class="content-wrapper text-left">
 			<div class="panel panel-success">
@@ -89,9 +89,9 @@
 							<div class="col-md-5">
 								<select id="tid" name="tid" class="form-control">
 									<option value="">====== 请选择费用类型 ======</option>
-									<option value="1">房费</option>
-									<option value="2">餐费</option>
-									<option value="3">车费</option>
+								<c:forEach items="${allTypes}" var="type">
+									<option value="${type.tpid}">${type.title}</option>
+								</c:forEach>
 								</select>
 							</div>
 							<!-- 定义表单错误提示显示元素 -->

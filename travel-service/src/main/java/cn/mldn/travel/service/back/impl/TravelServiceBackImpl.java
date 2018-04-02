@@ -12,6 +12,7 @@ import cn.mldn.travel.dao.IEmpDAO;
 import cn.mldn.travel.dao.IItemDAO;
 import cn.mldn.travel.dao.ILevelDAO;
 import cn.mldn.travel.dao.ITravelDAO;
+import cn.mldn.travel.dao.ITypeDAO;
 import cn.mldn.travel.service.back.ITravelServiceBack;
 import cn.mldn.travel.service.util.abs.AbstractService;
 import cn.mldn.travel.vo.Emp;
@@ -31,7 +32,8 @@ public class TravelServiceBackImpl extends AbstractService
 	private IEmpDAO empDAO;
 	@Resource
 	private ILevelDAO levelDAO;
-	
+	@Resource
+	private ITypeDAO typeDAO;
 	
 	@Override
 	public Map<String, Object> addPre() {
@@ -146,6 +148,13 @@ public class TravelServiceBackImpl extends AbstractService
 		param.put("edate", currenTravel.getEdate());
 		map.put("allEmps", this.empDAO.findAllByDept(param));
 		map.put("allRecorders", this.empDAO.getAllCountByDept(param));
+		return map;
+	}
+
+	@Override
+	public Map<String, Object> listCost(long tid) {
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("allTypes", this.typeDAO.findAll());
 		return map;
 	}
 	

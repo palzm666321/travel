@@ -135,5 +135,8 @@ public interface ITravelServiceBack {
 	public Map<String,Object> listByDept(long tid,long did,long currentPage,int lineSize,String column,String keyWord);
 	
 	
+	@RequiresRoles(value= {"travel"},logical=Logical.OR)
+	@RequiresPermissions(value= {"travel:edit"},logical=Logical.OR)
+	public Map<String, Object> listCost(long tid);
 	
 }

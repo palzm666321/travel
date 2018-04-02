@@ -111,8 +111,9 @@ public class TravelActionBack extends AbstractBaseAction {
 	@RequiresUser
 	@RequiresRoles(value = {"travel"}, logical = Logical.OR)
 	@RequiresPermissions(value = {"travel:edit"}, logical = Logical.OR)
-	public ModelAndView editCost() {
+	public ModelAndView editCost(long tid) {
 		ModelAndView mav = new ModelAndView(super.getUrl("travel.cost.page"));
+		mav.addAllObjects(this.travelServiceBack.listCost(tid));
 		return mav;
 	}
 
@@ -168,7 +169,6 @@ public class TravelActionBack extends AbstractBaseAction {
 	public ModelAndView deleteEmp(HttpServletResponse response,TravelEmp vo) {
 		JSONObject json=new JSONObject();
 		json.put("stauts", this.travelServiceBack.deleteTravelEmp(vo));
-		System.err.println(vo);
 		super.print(response, json);
 		return null;
 	}
@@ -214,5 +214,6 @@ public class TravelActionBack extends AbstractBaseAction {
 		return null;
 	}
 	
+
 	
 }
