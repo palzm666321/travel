@@ -159,4 +159,12 @@ public interface ITravelServiceBack {
 	public Map<String,Object> addCost(TravelCost vo);
 	
 	
+	/**
+	 * 删除指定的费用信息
+	 * @param tcid 费用编号
+	 * @return 成功返回true
+	 */
+	public boolean deleteCost(long tcid);
+	
+	
 }

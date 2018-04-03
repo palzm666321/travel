@@ -8,6 +8,16 @@ function calcTotal(){
 	$(allPrice).text(total);
 }
 
+function deleteCost(tcid) {
+	$.post("pages/back/admin/travel/delete_cost.action",{"tcid":tcid},function(data){
+		operateAlert(data.trim()=="true","支出项移除成功！" , "支出项移除失败！") ;
+		if(data.trim()=="true"){
+			$("#travel-"+tcid).remove();
+			calcTotal();
+		}
+	},"text");
+}
+
 function clearCostModal() {
 	$(title).val("") ;
 	$(price).val("") ;
@@ -18,6 +28,14 @@ function clearCostModal() {
 }
 $(function(){
 	calcTotal();
+	
+	$("button[id^=remove-]").each(function(){
+		tcid=this.id.split("-")[1];
+		$(this).on("click",function(){
+			deleteCost(tcid);
+		});
+	});
+	
 	$(addBtn).on("click",function(){
 		clearCostModal() ;
 		// Ajax异步读取用户信息
@@ -43,13 +61,14 @@ $(function(){
 							"	<td class='text-center'>￥<span id='price-"+data.cost.tcid+"'>"+data.cost.price+"</span></td>"+
 							"	<td class='text-center'>"+data.cost.title+"</td>"+
 							"	<td class='text-center'>"+
-							"		<button class='btn btn-warning btn-xs' id='edit-"+data.cost.tcid+"'>"+
-							"		<span class='glyphicon glyphicon-pencil'></span>&nbsp;修改</button>"+
 							"		<button class='btn btn-danger btn-xs' id='remove-"+data.cost.tcid+"'>"+
 							"			<span class='glyphicon glyphicon-remove'></span>&nbsp;移除</button>"+
 							"	</td>"+
 							"</tr> ";
 					$("#costTable").append(costInfo) ;
+					$("#remove-" + data.cost.tcid).on("click",function(){
+						deleteCost(data.cost.tcid) ;
+					}) ;
 					calcTotal();
 				}
 				$("#costInfo").modal("toggle") ;

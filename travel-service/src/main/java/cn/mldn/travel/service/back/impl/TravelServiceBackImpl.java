@@ -166,10 +166,18 @@ public class TravelServiceBackImpl extends AbstractService
 		boolean status=this.travelDAO.doCreateTravelCost(vo);
 		if(status) {
 			map.put("cost", vo);
-			map.put("type", this.typeDAO.findById(vo.getTcid()));
+			map.put("type", this.typeDAO.findById(vo.getTpid()));
 		}
 		map.put("status",status);
 		return map;
 	}
 	
+	@Override
+	public boolean deleteCost(long tcid) {
+		Travel vo=this.travelDAO.findTravelByCost(tcid);
+		if(vo.getAudit().equals(9)||vo.getAudit().equals(2)) {
+			return this.travelDAO.doRemoveTravelCost(tcid);
+		}
+		return false;
+	}
 }

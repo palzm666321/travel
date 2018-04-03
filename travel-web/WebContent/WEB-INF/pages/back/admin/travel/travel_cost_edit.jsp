@@ -37,8 +37,6 @@
 									<td class="text-center">￥<span id="price-${cost.tcid}">${cost.price}</span></td>
 									<td class="text-center">${cost.title}</td>
 									<td class="text-center">
-										<button class="btn btn-warning btn-xs" id="edit-${cost.tcid}">
-											<span class="glyphicon glyphicon-pencil"></span>&nbsp;修改</button>
 										<button class="btn btn-danger btn-xs" id="remove-${cost.tcid}">
 											<span class="glyphicon glyphicon-remove"></span>&nbsp;移除</button>
 									</td>

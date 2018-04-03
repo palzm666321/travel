@@ -43,4 +43,18 @@ public interface ITravelDAO extends IBaseDAO<Long, Travel> {
 	 */
 	public List<Travel> findAllTravelCost(long tid);
 	
+	
+	/**
+	 * 移除某一个支出费用项
+	 * @param tcid 费用编号
+	 * @return 成功返回true
+	 */
+	public boolean doRemoveTravelCost(long tcid);
+	
+	/**
+	 * 根据费用编号查询费用单
+	 * @param tcid 费用编号
+	 * @return 费用单
+	 */
+	public Travel findTravelByCost(long tcid);
 }

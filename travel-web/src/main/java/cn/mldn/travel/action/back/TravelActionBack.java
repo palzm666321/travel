@@ -236,7 +236,14 @@ public class TravelActionBack extends AbstractBaseAction {
 		return null;
 	}
 	
-	
+	@RequestMapping("delete_cost")
+	@RequiresUser
+	@RequiresRoles(value = {"travel"}, logical = Logical.OR)
+	@RequiresPermissions(value = {"travel:edit"}, logical = Logical.OR)
+	public ModelAndView deleteCost(HttpServletResponse response,long tcid) {
+		super.print(response, this.travelServiceBack.deleteCost(tcid));
+		return null;
+	}
 
 	
 }
