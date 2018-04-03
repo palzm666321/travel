@@ -164,7 +164,18 @@ public interface ITravelServiceBack {
 	 * @param tcid 费用编号
 	 * @return 成功返回true
 	 */
+	@RequiresRoles(value= {"travel"},logical=Logical.OR)
+	@RequiresPermissions(value= {"travel:edit"},logical=Logical.OR)
 	public boolean deleteCost(long tcid);
 	
+	/**
+	 * 进行出差单的申请提交，该提交要执行如下处理
+	 * 1、要根据tid取得全部出差的雇员信息，为了统计个数
+	 * 2、要查询全部的出差费用信息，进行费用的计算；
+	 * 3、要设置提交日期、审核状态、总费用、总人数
+	 * @param tid 出差单编号
+	 * @return 提交成功返回true
+	 */
+	public boolean editSubmit(long tid);
 	
 }

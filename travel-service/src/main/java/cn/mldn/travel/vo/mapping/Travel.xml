@@ -8,7 +8,7 @@
 	</insert>
 	
 	<select id="findAllSplit" parameterType="map" resultType="Travel">
-		select tid,seid,iid,title,sdate,edate,dest,audit,note,ecount,total from travel
+		select tid,seid,iid,title,sdate,edate,subdate,dest,audit,note,ecount,total from travel
 		<where>
 			seid=#{seid}
 			<if test="column!=null and keyWord!=null">
@@ -68,6 +68,15 @@
 		where tid =(
 			select tid from travel_cost where tcid=#{tcid}
 		)
+	</select>
+	
+	<update id="doUpdateSubmit" parameterType="Travel">
+		update travel set subdate=#{subdate},audit=#{audit},ecount=#{ecount},total=#{total}  
+		where tid=#{tid} and audit=9
+	</update>
+	
+	<select id="getTravelEmpCount" parameterType="long" resultType="int">
+		select count(*) from travel_emp where tid=#{tid}
 	</select>
 	
 </mapper>

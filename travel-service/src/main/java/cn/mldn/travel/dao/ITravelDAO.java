@@ -41,7 +41,7 @@ public interface ITravelDAO extends IBaseDAO<Long, Travel> {
 	 * @param tid 出差编号
 	 * @return 费用信息
 	 */
-	public List<Travel> findAllTravelCost(long tid);
+	public List<TravelCost> findAllTravelCost(long tid);
 	
 	
 	/**
@@ -57,4 +57,19 @@ public interface ITravelDAO extends IBaseDAO<Long, Travel> {
 	 * @return 费用单
 	 */
 	public Travel findTravelByCost(long tcid);
+	
+	/**
+	 * 要进行出差单的申请处理操作
+	 * @param vo 包含有要更新的出差单数据
+	 * @return 成功返回true
+	 */
+	public boolean doUpdateSubmit(Travel vo);
+	
+	
+	/**
+	 * 统计出指定出差信息的所有雇员人数
+	 * @param tid 出差信息编号
+	 * @return 统计的人数结果
+	 */
+	public Integer getTravelEmpCount(long tid) ; 
 }

@@ -188,12 +188,15 @@ public class TravelActionBack extends AbstractBaseAction {
 	@RequiresUser
 	@RequiresRoles(value = {"travel"}, logical = Logical.OR)
 	@RequiresPermissions(value = {"travel:submit"}, logical = Logical.OR)
-	public ModelAndView submit(HttpServletRequest request) {
+	public ModelAndView submit(HttpServletRequest request,long tid) {
 		ModelAndView mav = new ModelAndView(super.getUrl("back.forward.page"));
-		// super.setUrlAndMsg(request, "travel.self.action",
-		// "travel.submit.failure");
-		super.setUrlAndMsg(request, "travel.self.action",
-				"travel.submit.success");
+		if (this.travelServiceBack.editSubmit(tid)) {
+			super.setUrlAndMsg(request, "travel.self.action", "vo.delete.success",
+					FLAG);
+		} else {
+			super.setUrlAndMsg(request, "travel.self.action", "vo.delete.failure",
+					FLAG);
+		}
 		return mav;
 	}
 	

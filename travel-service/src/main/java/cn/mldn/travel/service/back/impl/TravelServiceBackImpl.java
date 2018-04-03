@@ -1,6 +1,9 @@
 package cn.mldn.travel.service.back.impl;
 
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -180,4 +183,26 @@ public class TravelServiceBackImpl extends AbstractService
 		}
 		return false;
 	}
+	
+	
+	@Override
+	public boolean editSubmit(long tid) {
+		Travel vo=new Travel();
+		vo.setTid(tid);
+		vo.setAudit(0);//修改审核状态
+		vo.setSubdate(new Date());//当前日期为审核日期
+		//1、获取本次出差所需的总雇员数量
+		vo.setEcount(this.travelDAO.getTravelEmpCount(tid));
+		//2、查询出所有的费用信息
+		List<TravelCost> allCosts=this.travelDAO.findAllTravelCost(tid);
+		//3、对信息进行迭代处理，以统计出总费用
+		double total=0.0;
+		Iterator<TravelCost> iter=allCosts.iterator();
+		while(iter.hasNext()) {
+			total+=iter.next().getPrice();
+		}
+		vo.setTotal(total);//保存总费用
+		return this.travelDAO.doUpdateSubmit(vo);
+	}
+	
 }
