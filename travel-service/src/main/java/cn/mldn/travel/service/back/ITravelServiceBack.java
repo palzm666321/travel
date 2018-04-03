@@ -143,7 +143,7 @@ public interface ITravelServiceBack {
 	 * 2、key=allCosts、value=所有的支出信息。
 	 */
 	@RequiresRoles(value= {"travel"},logical=Logical.OR)
-	@RequiresPermissions(value= {"travel:edit"},logical=Logical.OR)
+	@RequiresPermissions(value= {"travel:self"},logical=Logical.OR)
 	public Map<String, Object> listCost(long tid);
 	
 	/**
@@ -165,7 +165,7 @@ public interface ITravelServiceBack {
 	 * @return 成功返回true
 	 */
 	@RequiresRoles(value= {"travel"},logical=Logical.OR)
-	@RequiresPermissions(value= {"travel:edit"},logical=Logical.OR)
+	@RequiresPermissions(value= {"travel:delete"},logical=Logical.OR)
 	public boolean deleteCost(long tcid);
 	
 	/**
@@ -176,6 +176,22 @@ public interface ITravelServiceBack {
 	 * @param tid 出差单编号
 	 * @return 提交成功返回true
 	 */
+	@RequiresRoles(value= {"travel"},logical=Logical.OR)
+	@RequiresPermissions(value= {"travel:submit"},logical=Logical.OR)
 	public boolean editSubmit(long tid);
 	
+	
+	/**
+	 * 进行所有待审核的出差单列表
+	 * @param currentPage 当前页
+	 * @param lineSize 每页行
+	 * @param column 模糊列
+	 * @param keyWord 关键字
+	 * @return 包含有如下的返回信息：<br>
+	 * 1、key = allTravels、value = 全部的申请单；<br>
+	 * 2、key = allRecorders、value = 全部等待的申请单数量。
+	 */
+	@RequiresRoles(value = { "travelaudit" }, logical = Logical.OR)
+	@RequiresPermissions(value = { "travelaudit:list" }, logical = Logical.OR)
+	public Map<String,Object> listPrepare(long currentPage,int lineSize,String column,String keyWord) ;
 }

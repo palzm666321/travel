@@ -205,4 +205,14 @@ public class TravelServiceBackImpl extends AbstractService
 		return this.travelDAO.doUpdateSubmit(vo);
 	}
 	
+	
+	@Override
+	public Map<String, Object> listPrepare(long currentPage, int lineSize, String column, String keyWord) {
+		Map<String,Object> param=super.handleParam(currentPage, lineSize, column, keyWord);
+		param.put("audit", 0);
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("allTravels", this.travelDAO.findAllByAudit(param)) ;
+		map.put("allRecorders", this.travelDAO.getAllCountByAudit(param)) ;
+		return map;
+	}
 }

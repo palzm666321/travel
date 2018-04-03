@@ -1,6 +1,7 @@
 package cn.mldn.travel.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import cn.mldn.travel.vo.Travel;
 import cn.mldn.travel.vo.TravelCost;
@@ -72,4 +73,27 @@ public interface ITravelDAO extends IBaseDAO<Long, Travel> {
 	 * @return 统计的人数结果
 	 */
 	public Integer getTravelEmpCount(long tid) ; 
+	
+	/**
+	 * 统计指定状态下的数据量
+	 * @param param 包含有如下内容；<br>
+	 * 1、key=column、value=模糊查询列；<br>
+	 * 2、key=keyWord、value=查询关键字；<br>
+	 * 3、key=audit、value=审核状态;<br>
+	 * @return 统计量
+	 */
+	public Long getAllCountByAudit(Map<String,Object> param);
+	
+	/**
+	 * 进行指定审核状态的所有申请单列表
+	 * @param param 包含有如下内容;<br>
+	 * 1、key=start、value=开始行；<br>
+	 * 2、key=lineSize、value=每页长度；<br>
+	 * 3、key=column、value=模糊查询列；<br>
+	 * 4、key=keyWord、value=查询关键字；<br>
+	 * 5、key=audit、value=审核状态<br>
+	 * @return 差旅信息
+	 */
+	public List<Travel> findAllByAudit(Map<String,Object> param);
+	
 }

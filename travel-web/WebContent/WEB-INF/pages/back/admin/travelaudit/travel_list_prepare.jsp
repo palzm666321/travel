@@ -39,51 +39,41 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr id="travel-1">
-								<td class="text-center"><span class="text-danger"><span class="glyphicon glyphicon-flag"></span>&nbsp;已完成</span></td>
+						
+						<c:forEach items="${allTravels}" var="travel">
+							<tr id="travel-${travel.tid}">
 								<td class="text-center">
-									XX公司CRM项目
+										<c:if test="${travel.audit==9}">
+											<span class="text-primary"><span class="glyphicon glyphicon-flag"></span>&nbsp;待提交</span>
+										</c:if>
+										<c:if test="${travel.audit==0}">
+											<span class="text-info"><span class="glyphicon glyphicon-flag"></span>&nbsp;审核中</span>
+										</c:if>
+										<c:if test="${travel.audit==1}">
+											<span class="text-success"><span class="glyphicon glyphicon-flag"></span>&nbsp;进行中</span>
+										</c:if>
+										<c:if test="${travel.audit==2}">
+											<span class="text-warning"><span class="glyphicon glyphicon-flag"></span>&nbsp;已拒绝</span>
+										</c:if>
+										<c:if test="${travel.audit==3}">
+											<span class="text-danger"><span class="glyphicon glyphicon-flag"></span>&nbsp;已完成</span>
+										</c:if>
+									</td>
+								<td class="text-center">
+									${travel.title}
 								</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">20人</td>
-								<td class="text-center">￥8923.23</td>
+								<td class="text-center"><fmt:formatDate value="${travel.subdate}" pattern="yyyy-MM-dd"/></td>
+								<td class="text-center"><fmt:formatDate value="${travel.sdate}" pattern="yyyy-MM-dd"/></td>
+								<td class="text-center"><fmt:formatDate value="${travel.edate}" pattern="yyyy-MM-dd"/></td>
+								<td class="text-center">${travel.ecount}人</td>
+								<td class="text-center">￥${travel.dest}</td>
 								<td class="text-center">
-									<a type="button" class="btn btn-primary btn-xs" href="<%=TRAVEL_AUDIT_URL%>">
+									<a type="button" class="btn btn-primary btn-xs" href="<%=TRAVEL_AUDIT_URL%>?tid=${travel.tid}">
 										<span class="glyphicon glyphicon-cloud-upload"></span>&nbsp;处理申请</a>
 								</td>
 							</tr> 
-							<tr id="travel-2">
-								<td class="text-center"><span class="text-warning"><span class="glyphicon glyphicon-flag"></span>&nbsp;进行中</span></td>
-								<td class="text-center">
-									XX公司CRM项目
-								</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">20人</td>
-								<td class="text-center">￥8923.23</td>
-								<td class="text-center">
-									<a type="button" class="btn btn-primary btn-xs" href="<%=TRAVEL_AUDIT_URL%>">
-										<span class="glyphicon glyphicon-cloud-upload"></span>&nbsp;处理申请</a>
-								</td>
-							</tr> 
-							<tr id="travel-3">
-								<td class="text-center"><span class="text-primary"><span class="glyphicon glyphicon-flag"></span>&nbsp;待提交</span></td>
-								<td class="text-center">
-									XX公司CRM项目
-								</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">20人</td>
-								<td class="text-center">￥8923.23</td>
-								<td class="text-center">
-									<a type="button" class="btn btn-primary btn-xs" href="<%=TRAVEL_AUDIT_URL%>">
-										<span class="glyphicon glyphicon-cloud-upload"></span>&nbsp;处理申请</a>
-								</td>
-							</tr> 
+						</c:forEach>
+					
 						</tbody>
 					</table>
 					<div id="splitBarDiv" style="float:right">

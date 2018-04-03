@@ -79,4 +79,27 @@
 		select count(*) from travel_emp where tid=#{tid}
 	</select>
 	
+	<select id="findAllByAudit" parameterType="map" resultType="Travel">
+		select tid,seid,iid,title,sdate,edate,dest,audit,note,ecount,total,subdate,auddate,anote,aeid 
+		from travel 
+		<where>
+			audit=#{audit} 
+			<if test="column!=null and keyWord!=null ">
+				and ${column} like #{keyWord}
+			</if>
+		</where>
+		order by subdate desc 
+		limit #{start},#{lineSize}		
+	</select>
+	
+	<select id="getAllCountByAudit" parameterType="map" resultType="long">
+		select count(*) from travel 
+		<where>
+			audit=#{audit}
+			<if test="column!=null and keyWord!=null">
+				and ${column} like #{keyWord}
+			</if>
+		</where>
+	</select>
+	
 </mapper>
