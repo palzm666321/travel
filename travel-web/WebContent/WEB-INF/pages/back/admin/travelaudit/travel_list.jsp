@@ -40,45 +40,28 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr id="travel-1">
-								<td class="text-center"><span class="text-danger"><span class="glyphicon glyphicon-flag"></span>&nbsp;已完成</span></td>
-								<td class="text-center">
-									<span id="showBtn-1" onmouseover="this.style.cursor='hand'">XX公司CRM项目</span>
-								</td>
-								<td class="text-center"><span id="eid-7369" style="cursor:pointer;">老李</span></td>
-								<td class="text-center">开发一部</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">20人</td>
-								<td class="text-center">￥8923.23</td>
-							</tr> 
-							<tr id="travel-2">
-								<td class="text-center"><span class="text-warning"><span class="glyphicon glyphicon-flag"></span>&nbsp;进行中</span></td>
-								<td class="text-center">
-									<span id="showBtn-2" onmouseover="this.style.cursor='hand'">XX公司CRM项目</span>
-								</td>
-								<td class="text-center"><span id="eid-7369" style="cursor:pointer;">老李</span></td>
-								<td class="text-center">开发一部</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">20人</td>
-								<td class="text-center">￥8923.23</td>
-							</tr> 
-							<tr id="travel-3">
-								<td class="text-center"><span class="text-primary"><span class="glyphicon glyphicon-flag"></span>&nbsp;待提交</span></td>
-								<td class="text-center">
-									<span id="showBtn-3" onmouseover="this.style.cursor='hand'">XX公司CRM项目</span>
-								</td>
-								<td class="text-center"><span id="eid-7369" style="cursor:pointer;">老李</span></td>
-								<td class="text-center">开发一部</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">2018-10-10</td>
-								<td class="text-center">20人</td>
-								<td class="text-center">￥8923.23</td>
-							</tr> 
+							<c:forEach items="${allTravels}" var="trv">
+								<tr id="travel-${trv.tid}">
+									<td class="text-center">
+										<c:if test="${trv.audit==1}">
+											<span class="text-success"><span class="glyphicon glyphicon-flag"></span>&nbsp;进行中</span>
+										</c:if>
+										<c:if test="${trv.audit==3}">
+											<span class="text-danger"><span class="glyphicon glyphicon-flag"></span>&nbsp;已完成</span>
+										</c:if>
+									</td>
+									<td class="text-center">
+										<span id="showBtn-${trv.tid}" onmouseover="this.style.cursor='hand'">${trv.title }</span>
+									</td>
+									<td class="text-center"><span id="eid-${trv.seid}" style="cursor:pointer;">${allEmps[trv.seid].ename}</span></td>
+									<td class="text-center">${allDepts[allEmps[trv.seid].did]}</td>
+									<td class="text-center"><fmt:formatDate value="${trv.subdate}" pattern="yyyy-MM-dd"/></td>
+									<td class="text-center"><fmt:formatDate value="${trv.sdate}" pattern="yyyy-MM-dd"/></td>
+									<td class="text-center"><fmt:formatDate value="${trv.edate}" pattern="yyyy-MM-dd"/></td>
+									<td class="text-center">${trv.ecount}人</td>
+									<td class="text-center">￥${trv.total}</td>
+								</tr> 
+							</c:forEach>
 						</tbody>
 					</table>
 					<div id="splitBarDiv" style="float:right">

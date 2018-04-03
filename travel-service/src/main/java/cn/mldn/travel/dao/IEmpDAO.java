@@ -62,4 +62,11 @@ public interface IEmpDAO extends IBaseDAO<String, Emp> {
 	 */
 	public Emp findTravelById(Map<String,Object> param);
 	
+	/**
+	 * 根据指定的雇员编号查询出所有的雇员信息
+	 * @param ids 雇员编号
+	 * @return 全部雇员信息
+	 */
+	public List<Emp> findAllByIds2(String ids);
+	
 }

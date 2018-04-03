@@ -108,4 +108,28 @@
 		where tid=#{tid} and audit=0
 	</update>
 	
+	
+	<select id="getAllCountPass" parameterType="map" resultType="long">
+		select count(*) from travel 
+		<where>
+			audit=1 or audit=3
+			<if test="column!=null and keyWord!=null">
+				and ${column} like #{keyWord}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findAllPass" parameterType="map" resultType="Travel">
+		select tid,seid,iid,title,sdate,edate,dest,audit,note,ecount,total,subdate,auddate,anote,aeid 
+		from travel 
+		<where>
+			audit=1 or audit=3
+			<if test="column!=null and keyWord!=null ">
+				and ${column} like #{keyWord}
+			</if>
+		</where>
+		order by subdate desc 
+		limit #{start},#{lineSize}		
+	</select>
+	
 </mapper>

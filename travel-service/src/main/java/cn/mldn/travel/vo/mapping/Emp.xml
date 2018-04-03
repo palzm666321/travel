@@ -143,4 +143,16 @@
 		) and eid=#{eid}
 	</select>
 	
+	
+	<select id="findAllByIds2" resultType="Emp">
+		select eid,lid,did,ename,sal,phone,password,photo,note,hiredate,ineid,locked from emp
+		<where>
+			eid in 
+			<foreach collection="array" open="(" close=")" separator="," item="myeid">
+				#{myeid}
+			</foreach>
+			and locked!=2
+		</where>
+	</select>
+	
 </mapper>
