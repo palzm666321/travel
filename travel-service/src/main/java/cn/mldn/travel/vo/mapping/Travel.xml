@@ -102,4 +102,10 @@
 		</where>
 	</select>
 	
+	
+	<update id="doUpdateAudit" parameterType="Travel">
+		update travel set aeid=#{aeid},auddate=#{auddate},anote=#{anote},audit=#{audit} 
+		where tid=#{tid} and audit=0
+	</update>
+	
 </mapper>

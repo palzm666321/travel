@@ -210,4 +210,11 @@ public interface ITravelServiceBack {
 	 */
 	public Map<String,Object> getDetailsAudit(long tid);
 	
+	/**
+	 * 进行出差申请单的审核处理操作
+	 * @param vo 申请单的更新信息
+	 * @return 成功返回true
+	 */
+	public boolean editAudit(Travel vo);
+	
 }

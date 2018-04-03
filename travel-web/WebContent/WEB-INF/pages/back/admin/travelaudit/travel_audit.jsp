@@ -91,6 +91,7 @@
 								</div> 
 								<div class="form-group">
 									<div class="col-md-5 col-md-offset-3">
+										<input type="hidden" name="tid" id="tid" value="${travel.tid}">
 										<button type="submit" class="btn btn-primary">审核处理</button>
 										<button type="reset" class="btn btn-warning">重置</button>
 									</div>

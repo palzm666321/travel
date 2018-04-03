@@ -96,4 +96,11 @@ public interface ITravelDAO extends IBaseDAO<Long, Travel> {
 	 */
 	public List<Travel> findAllByAudit(Map<String,Object> param);
 	
+	/**
+	 * 进行出差单的审核处理操作
+	 * @param vo 审核信息
+	 * @return 成功返回true
+	 */
+	public boolean doUpdateAudit(Travel vo);
+	
 }

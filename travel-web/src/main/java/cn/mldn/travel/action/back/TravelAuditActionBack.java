@@ -20,6 +20,7 @@ import cn.mldn.travel.service.back.ITravelServiceBack;
 import cn.mldn.travel.vo.Dept;
 import cn.mldn.travel.vo.Item;
 import cn.mldn.travel.vo.Level;
+import cn.mldn.travel.vo.Travel;
 import cn.mldn.travel.vo.Type;
 import cn.mldn.util.ListToMapUtils;
 import cn.mldn.util.action.abs.AbstractBaseAction;
@@ -71,11 +72,16 @@ public class TravelAuditActionBack extends AbstractBaseAction {
 	@RequiresUser
 	@RequiresRoles(value = { "travelaudit" }, logical = Logical.OR)
 	@RequiresPermissions(value = { "travelaudit:handle" }, logical = Logical.OR)
-	public ModelAndView handle(HttpServletRequest request) {
+	public ModelAndView handle(HttpServletRequest request,Travel vo) {
 		ModelAndView mav = new ModelAndView(super.getUrl("back.forward.page"));
-		// super.setUrlAndMsg(request, "travelaudit.prepare.action", "travelaudit.handle.failure",
-		// FLAG);
-		super.setUrlAndMsg(request, "travelaudit.prepare.action", "travelaudit.handle.success");
+		vo.setAeid(super.getEid());
+		if (this.travelServiceBack.editAudit(vo)) {
+			super.setUrlAndMsg(request, "travel.add.action", "vo.add.success",
+					FLAG);
+		} else {
+			super.setUrlAndMsg(request, "travel.add.action", "vo.add.failure",
+					FLAG);
+		}
 		return mav;
 	}
 }

@@ -232,4 +232,10 @@ public class TravelServiceBackImpl extends AbstractService
 		return map;
 	}
 	
+	@Override
+	public boolean editAudit(Travel vo) {
+		vo.setAuddate(new Date());//审核日期为今天
+		return this.travelDAO.doUpdateAudit(vo);
+	}
+	
 }
