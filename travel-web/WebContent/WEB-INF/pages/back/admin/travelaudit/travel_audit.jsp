@@ -26,35 +26,35 @@
 						<table class="table table-striped table-bordered table-hover">
 							<tr> 
 								<td style="width:150px;"><strong>申请标题：</strong></td>
-								<td>XX公司CRM项目</td>
+								<td>${travel.title}</td>
 							</tr>
 							<tr>
 								<td><strong>出差类型：</strong></td>
-								<td>驻外开发</td>
+								<td>${allItems[travel.iid]}</td>
 							</tr>
 							<tr>
 								<td><strong>总费用：</strong></td>
-								<td>￥8282923.23</td>
+								<td>￥${travel.total}</td>
 							</tr>
 							<tr>
 								<td><strong>总人数：</strong></td>
-								<td>30人</td>
+								<td>${travel.ecount}人</td>
 							</tr>
 							<tr>
 								<td><strong>申请日期：</strong></td>
-								<td>2019-10-10</td>
+								<td><fmt:formatDate value="${travel.subdate}" pattern="yyyy-MM-dd"/></td>
 							</tr>
 							<tr>
 								<td><strong>出发日期：</strong></td>
-								<td>2019-10-10</td>
+								<td><fmt:formatDate value="${travel.sdate}" pattern="yyyy-MM-dd"/></td>
 							</tr>
 							<tr>
 								<td><strong>返回日期：</strong></td>
-								<td>2019-10-10</td>
+								<td><fmt:formatDate value="${travel.edate}" pattern="yyyy-MM-dd"/></td>
 							</tr>
 							<tr>
 								<td><strong>目的地：</strong></td>
-								<td>北京市xxxxxx</td>
+								<td>${travel.dest}</td>
 							</tr>
 						</table>
 					</div>
@@ -66,11 +66,11 @@
 									<label class="col-md-3 control-label" for="destination">审核结论：</label>
 									<div class="col-md-5">
 										<div class="radio-inline">
-											<label><input type="radio" id="audit" value="2" checked>
+											<label><input type="radio" id="audit" name="audit" value="2" checked>
 												&nbsp;<span class="text-danger">拒绝</span></label>
 										</div> 
 										<div class="radio-inline">
-											<label><input type="radio" id="audit" value="1">
+											<label><input type="radio" id="audit" name="audit" value="1">
 												&nbsp;<span class="text-success">通过</span></label>
 										</div> 
 									</div>
@@ -103,7 +103,7 @@
 							<div class="panel-heading">
 								<h4 class="panel-title"> 
 									<a data-toggle="collapse" data-parent="news" href="#contentOne">
-										<strong><span class="glyphicon glyphicon-user"></span>&nbsp;出差人员安排（总人数：）</strong>
+										<strong><span class="glyphicon glyphicon-user"></span>&nbsp;出差人员安排（总人数：${travel.ecount}）</strong>
 									</a>
 								</h4>
 							</div>
@@ -114,7 +114,6 @@
 											<tr>
 												<th class="text-center"><strong>照片</strong></th>
 												<th class="text-center"><strong>姓名</strong></th>
-												<th class="text-center"><strong>联系电话</strong></th>
 												<th class="text-center"><strong>工资</strong></th>
 												<th class="text-center"><strong>级别</strong></th>
 												<th class="text-center"><strong>雇佣日期</strong></th>
@@ -122,17 +121,18 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr id="travel-1">
-												<td class="text-center">
-													<img src="upload/member/nophoto.png" style="width:20px;"/> 
-												</td>
-												<td class="text-center"><span id="eid-7369" style="cursor:pointer;">老李</span></td>
-												<td class="text-center">3298239832</td>
-												<td class="text-center">￥8923.23</td>
-												<td class="text-center">一级员工</td>
-												<td class="text-center">2019-10-10</td>
-												<td class="text-center">开发部</td>
-											</tr> 
+											<c:forEach items="${allEmps}" var="emp">
+												<tr id="travelEmp-${emp.eid}">
+													<td class="text-center">
+														<img src="upload/member/${emp.photo}" style="width:20px;"/> 
+													</td>
+													<td class="text-center">${emp.eid}</td>
+													<td class="text-center">${emp.ename}</td>
+													<td class="text-center">￥${emp.sal}</td>
+													<td class="text-center">${allLevels[emp.lid]}</td>
+													<td class="text-center">${allDepts[emp.did]}</td>
+												</tr> 
+											</c:forEach> 
 										</tbody>
 									</table>
 								</div>
@@ -142,7 +142,7 @@
 							<div class="panel-heading">
 								<h4 class="panel-title">
 									<a data-toggle="collapse" data-parent="news" href="#contentTwo">
-										<strong><span class="glyphicon glyphicon-list-alt"></span>&nbsp;出差费用支出项（总费用￥<span id="allPrice" class="text-danger h2"></span>）</strong>
+										<strong><span class="glyphicon glyphicon-list-alt"></span>&nbsp;出差费用支出项（总费用￥<span id="allPrice" class="text-danger h2">${travel.total}</span>）</strong>
 									</a>
 								</h4>
 							</div>
@@ -157,11 +157,13 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr id="travel-1">
-												<td class="text-center">房费</td>
-												<td class="text-center">￥<span id="price-1">3000</span></td>
-												<td class="text-center">三间房屋十天费用</td>
-											</tr> 
+											<c:forEach items="${allCosts}" var="cost">
+												<tr id="travelCost-${cost.tcid}">
+													<td class="text-center">${allTypes[cost.tpid]}</td>
+													<td class="text-center">￥<span id="price-${cost.tcid}">${cost.price}</span></td>
+													<td class="text-center">${cost.title}</td>
+												</tr> 
+											</c:forEach>
 										</tbody>
 									</table>
 								</div>

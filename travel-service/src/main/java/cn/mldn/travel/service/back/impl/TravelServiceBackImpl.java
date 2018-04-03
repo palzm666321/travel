@@ -215,4 +215,21 @@ public class TravelServiceBackImpl extends AbstractService
 		map.put("allRecorders", this.travelDAO.getAllCountByAudit(param)) ;
 		return map;
 	}
+	
+	@Override
+	public Map<String, Object> getDetailsAudit(long tid) {
+		Map<String,Object> map=new HashMap<String,Object>();
+		Travel travel=this.travelDAO.findById(tid);
+		if(travel.getAudit().equals(0)) {//如果是9则表示允许做审核处理
+			map.put("travel", travel);
+			map.put("allDepts", this.deptDAO.findAll());
+			map.put("allLevels", this.levelDAO.findAll());
+			map.put("allTypes", this.typeDAO.findAll());
+			map.put("allEmps", this.empDAO.findAllByTravel(tid));
+			map.put("allCosts", this.travelDAO.findAllTravelCost(tid));
+			map.put("allItems", this.itemDAO.findAll());
+		}
+		return map;
+	}
+	
 }

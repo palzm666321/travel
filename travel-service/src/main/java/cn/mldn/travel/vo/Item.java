@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class Item implements Serializable {
-	private String iid;
+	private Long iid;
 	private String title;
-	public String getIid() {
+	public Long getIid() {
 		return iid;
 	}
-	public void setIid(String iid) {
+	public void setIid(Long iid) {
 		this.iid = iid;
 	}
 	public String getTitle() {
