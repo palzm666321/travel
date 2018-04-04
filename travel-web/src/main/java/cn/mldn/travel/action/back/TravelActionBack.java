@@ -191,10 +191,10 @@ public class TravelActionBack extends AbstractBaseAction {
 	public ModelAndView submit(HttpServletRequest request,long tid) {
 		ModelAndView mav = new ModelAndView(super.getUrl("back.forward.page"));
 		if (this.travelServiceBack.editSubmit(tid)) {
-			super.setUrlAndMsg(request, "travel.self.action", "vo.delete.success",
+			super.setUrlAndMsg(request, "travel.self.action", "vo.add.success",
 					FLAG);
 		} else {
-			super.setUrlAndMsg(request, "travel.self.action", "vo.delete.failure",
+			super.setUrlAndMsg(request, "travel.self.action", "vo.add.failure",
 					FLAG);
 		}
 		return mav;

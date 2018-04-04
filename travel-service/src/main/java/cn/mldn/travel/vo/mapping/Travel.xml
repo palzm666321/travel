@@ -54,6 +54,14 @@
 		insert into travel_cost (tpid,tid,price,title) values (#{tpid},#{tid},#{price},#{title})
 	</insert>
 	
+	<select id="findTravelByCost" parameterType="long" resultType="Travel">
+		select tid,seid,iid,title,sdate,edate,dest,audit,note,ecount,total,subdate,auddate,anote,aeid
+		from travel
+		where tid=(
+			select tid from travel_cost where tcid=#{tcid}
+		)
+	</select>
+	
 	<select id="findAllTravelCost" parameterType="long" resultType="TravelCost">
 		select tcid,tpid,tid,price,title from travel_cost where tid=#{tid}
 	</select>
@@ -62,13 +70,7 @@
 		delete from travel_cost where tcid=#{tcid}
 	</delete>
 	
-	<select id="findTravelByCost" parameterType="long" resultType="Travel">
-		select tid,seid,iid,title,sdate,edate,dest,audit,note,ecount,total,subdate,auddate,anote,aeid 
-		from travel 
-		where tid =(
-			select tid from travel_cost where tcid=#{tcid}
-		)
-	</select>
+	
 	
 	<update id="doUpdateSubmit" parameterType="Travel">
 		update travel set subdate=#{subdate},audit=#{audit},ecount=#{ecount},total=#{total}  

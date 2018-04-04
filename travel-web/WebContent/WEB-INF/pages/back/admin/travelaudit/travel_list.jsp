@@ -51,7 +51,7 @@
 										</c:if>
 									</td>
 									<td class="text-center">
-										<span id="showBtn-${trv.tid}" onmouseover="this.style.cursor='hand'">${trv.title }</span>
+										<span id="showBtn-${trv.tid}" onmouseover="this.style.cursor='hand'">${trv.title}</span>
 									</td>
 									<td class="text-center"><span id="eid-${trv.seid}" style="cursor:pointer;">${allEmps[trv.seid].ename}</span></td>
 									<td class="text-center">${allDepts[allEmps[trv.seid].did]}</td>

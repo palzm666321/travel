@@ -25,4 +25,10 @@ public class Level implements Serializable {
 	public void setLevel(Integer level) {
 		this.level = level;
 	}
+	@Override
+	public String toString() {
+		return "Level [lid=" + lid + ", title=" + title + ", level=" + level + "]";
+	}
+	
+	
 }

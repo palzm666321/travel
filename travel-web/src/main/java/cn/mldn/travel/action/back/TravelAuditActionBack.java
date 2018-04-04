@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -26,6 +27,7 @@ import cn.mldn.travel.vo.Type;
 import cn.mldn.util.ListToMapUtils;
 import cn.mldn.util.action.abs.AbstractBaseAction;
 import cn.mldn.util.split.ActionSplitPageUtil;
+import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("/pages/back/admin/travelaudit/*")
@@ -96,4 +98,16 @@ public class TravelAuditActionBack extends AbstractBaseAction {
 		}
 		return mav;
 	}
+	
+	@RequestMapping("show")
+	@RequiresUser
+	@RequiresRoles(value = { "travelaudit" }, logical = Logical.OR)
+	@RequiresPermissions(value = { "travelaudit:list" }, logical = Logical.OR)
+	public ModelAndView show(HttpServletResponse response,long tid) {
+		JSONObject obj=new JSONObject();
+		obj.putAll(this.travelServiceBack.getDetailsShow(tid));
+		super.print(response, obj);
+		return null;
+	}
+	
 }
