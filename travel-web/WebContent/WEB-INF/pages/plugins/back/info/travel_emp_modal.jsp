@@ -10,7 +10,7 @@
 			</div>
 			<div class="modal-body"> 
 				<div>
-					<table class="table table-condensed">
+					<table class="table table-condensed" id="travelEmpTable">
 						<thead>
 							<tr>
 								<th class="text-center"><strong>照片</strong></th>
@@ -21,15 +21,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr id="travel-1">
-								<td class="text-center">
-									<img src="upload/member/nophoto.png" style="width:20px;"/> 
-								</td>
-								<td class="text-center"><span id="eid-7369" style="cursor:pointer;">老李</span></td>
-								<td class="text-center">3298239832</td>
-								<td class="text-center">一级员工</td>
-								<td class="text-center">开发部</td>
-							</tr> 
+							
 						</tbody>
 					</table>
 				</div>

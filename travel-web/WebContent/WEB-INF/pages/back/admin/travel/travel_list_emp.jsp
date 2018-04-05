@@ -3,13 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="/WEB-INF/pages/plugins/back/back_header.jsp"/>
-<%!
-	public static final String TRAVEL_SUBMIT_URL = "pages/back/admin/travel/submit.action" ;
-	public static final String TRAVEL_EDIT_URL = "pages/back/admin/travel/edit_pre.action" ;
-	public static final String TRAVEL_DELETE_URL = "pages/back/admin/travel/delete.action" ;
-	public static final String TRAVEL_USER_URL = "pages/back/admin/travel/user_edit_pre.action" ;
-	public static final String TRAVEL_COST_URL = "pages/back/admin/travel/cost_edit_pre.action" ;
-%>
 <script type="text/javascript" src="js/pages/back/admin/travel/travel_list_emp.js"></script>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">

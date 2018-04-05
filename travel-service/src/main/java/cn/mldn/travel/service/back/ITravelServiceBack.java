@@ -263,4 +263,16 @@ public interface ITravelServiceBack {
 	@RequiresPermissions(value= {"travel:self"},logical=Logical.OR)
 	public Map<String,Object> listByEmp(String eid,long currentPage,int lineSize,String column,String keyWord);
 	
+	/**
+	 * 要获取指定出差的所有雇员信息
+	 * @param tid 出差编号
+	 * @return 包含有如下数据返回：<br>
+	 * 1、key=allEmps、value=全部的出差员工信息；<br>
+	 * 2、key=allDepts、value=所有的部门信息；<br>
+	 * 2、key=allLevels、value=所有级别；<br>
+	 */
+	@RequiresRoles(value= {"travel"},logical=Logical.OR)
+	@RequiresPermissions(value= {"travel:self"},logical=Logical.OR)
+	public Map<String,Object> getTravelEmp(long tid);
+	
 }

@@ -251,4 +251,16 @@ public class TravelActionBack extends AbstractBaseAction {
 	}
 
 	
+	@RequestMapping("show_emp")
+	@RequiresUser
+	@RequiresRoles(value = {"travel"}, logical = Logical.OR)
+	@RequiresPermissions(value = {"travel:self"}, logical = Logical.OR)
+	public ModelAndView showEmp(HttpServletResponse response,long tid) {
+		JSONObject json=new JSONObject();
+		System.err.println(this.travelServiceBack.getTravelEmp(tid));
+		json.putAll(this.travelServiceBack.getTravelEmp(tid));
+		super.print(response, json);
+		return null;
+	}
+	
 }
