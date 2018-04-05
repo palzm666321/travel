@@ -1,5 +1,6 @@
 package cn.mldn.travel.dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -144,5 +145,12 @@ public interface ITravelDAO extends IBaseDAO<Long, Travel> {
 	 * @return
 	 */
 	public Long getAllCountByEmp(Map<String,Object> param);
+	
+	/**
+	 * 根据指定的日期更新差旅的状态
+	 * @param currentDate 当前日期
+	 * @return 更新成功返回true
+	 */
+	public boolean doUpdateAuditTask(Date currentDate);
 	
 }

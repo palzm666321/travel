@@ -275,4 +275,11 @@ public interface ITravelServiceBack {
 	@RequiresPermissions(value= {"travel:self"},logical=Logical.OR)
 	public Map<String,Object> getTravelEmp(long tid);
 	
+	
+	/**
+	 * 进行定时调度更新
+	 * @return 更新结果
+	 */
+	public boolean editTask();
+	
 }

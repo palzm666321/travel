@@ -292,4 +292,10 @@ public class TravelServiceBackImpl extends AbstractService
 		map.put("allEmps", this.empDAO.findAllByTravel(tid));
 		return map;
 	}
+	
+	@Override
+	public boolean editTask() {
+		return this.travelDAO.doUpdateAuditTask(new Date());
+	}
+	
 }

@@ -162,4 +162,11 @@
 		</where>
 	</select>
 	
+	<update id="doUpdateAuditTask" parameterType="date">
+		update travel set audit=3
+		where audit=1 and edate&lt;#{date}
+	</update>
+	
+	
+	
 </mapper>
