@@ -72,23 +72,23 @@
 					</ul></li>
 				</shiro:hasRole>
 			<shiro:hasRole name="travel">
-				<c:if test="${level == 2 || level == 1}">
 					<li class="treeview ${param.mi==2 ? 'active' : ''}"><a href="${basePath}<%=INDEX_URL%>"> <i class="fa  fa-car"></i>
 						<span>差旅安排</span> <i class="fa fa-angle-left pull-right"></i>
 					</a>
 					<ul class="treeview-menu">
-						<shiro:hasPermission name="travel:add">
-							<li class="${param.msi==21 ? 'active' : ''}"><a href="<%=TRAVEL_ADD_URL%>"><i
-								class="fa fa-train"></i> 出差申请</a></li>
-						</shiro:hasPermission>
-						<shiro:hasPermission name="travel:self">
-							<li class="${param.msi==22 ? 'active' : ''}"><a href="<%=TRAVEL_LIST_SELF_URL%>"><i
-								class="fa fa-history"></i> 我的申请</a></li>
-						</shiro:hasPermission>
-						<li class="${param.msi==23 ? 'active' : ''}"><a href="<%=TRAVEL_LIST_EMP_URL%>"><i
-								class="fa fa-train"></i> 我的出差</a></li>
+						<c:if test="${level == 2 || level == 1}">
+							<shiro:hasPermission name="travel:add">
+								<li class="${param.msi==21 ? 'active' : ''}"><a href="<%=TRAVEL_ADD_URL%>"><i
+									class="fa fa-train"></i> 出差申请</a></li>
+							</shiro:hasPermission>
+							<shiro:hasPermission name="travel:self">
+								<li class="${param.msi==22 ? 'active' : ''}"><a href="<%=TRAVEL_LIST_SELF_URL%>"><i
+									class="fa fa-history"></i> 我的申请</a></li>
+							</shiro:hasPermission>
+						</c:if>
+							<li class="${param.msi==23 ? 'active' : ''}"><a href="<%=TRAVEL_LIST_EMP_URL%>"><i
+									class="fa fa-train"></i> 我的出差</a></li>
 					</ul></li>
-				</c:if>
 			</shiro:hasRole>
 			<shiro:hasRole name="travelaudit">
 				<li class="treeview  ${param.mi==3 ? 'active' : ''}"><a href="${basePath}<%=INDEX_URL%>"> <i class="fa fa-bitbucket-square"></i>

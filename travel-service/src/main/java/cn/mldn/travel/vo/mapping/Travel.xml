@@ -134,4 +134,32 @@
 		limit #{start},#{lineSize}		
 	</select>
 	
+	<select id="findAllByEmp" parameterType="map" resultType="Travel">
+		select tid,seid,aeid,iid,title,sdate,edate,subdate,dest,audit,note,auddate,anote,ecount,total 
+		from travel 
+		<where>
+			(audit=1 or audit=3) and tid in (
+				select tid from travel_emp where eid=#{eid}
+ 			)
+ 			<if test="column!=null and keyWord!=null">
+ 				and ${column} like #{keyWord}
+ 			</if>
+		</where>
+		order by subdate desc 
+		limit #{start},#{lineSize}
+	</select>
+	
+	
+	<select id="getAllCountByEmp" parameterType="map" resultType="long">
+		select count(*) from travel 
+		<where>
+			(audit=1 or audit=3) and tid in (
+				select tid from travel_emp where eid=#{eid}
+			)
+			<if test="column!=null and keyWord!=null">
+				and #{column} like #{keyWord}
+			</if>
+		</where>
+	</select>
+	
 </mapper>

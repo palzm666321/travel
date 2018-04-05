@@ -123,4 +123,26 @@ public interface ITravelDAO extends IBaseDAO<Long, Travel> {
 	 */
 	public List<Travel> findAllPass(Map<String,Object> param);
 	
+	/**
+	 * 根据雇员编号查找出其对应的所有出差信息
+	 * @param param 包含有如下内容;<br>
+	 * 1、key=start、value=开始行；<br>
+	 * 2、key=lineSize、value=每页长度；<br>
+	 * 3、key=column、value=模糊查询列；<br>
+	 * 4、key=keyWord、value=查询关键字；<br>
+	 * 5、key=eid、value=雇员编号<br>
+	 * @return 差旅信息
+	 */
+	public List<Travel> findAllByEmp(Map<String,Object> param);
+	
+	/**
+	 * 根据雇员编号查询出所有与雇员有关的出差信息
+	 * @param param 包含如下内容；<br>
+	 * 1、key=column、value=模糊查询列；<br>
+	 * 2、key=keyWord、value=查询关键字；<br>
+	 * 3、key=eid、value=雇员编号；<br>
+	 * @return
+	 */
+	public Long getAllCountByEmp(Map<String,Object> param);
+	
 }

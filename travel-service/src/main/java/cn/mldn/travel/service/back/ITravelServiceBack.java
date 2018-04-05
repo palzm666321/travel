@@ -247,5 +247,20 @@ public interface ITravelServiceBack {
 	 * 7、key=allItems、value=全部出差类型；<br>
 	 */
 	public Map<String,Object> getDetailsShow(long tid);
+
+	/**
+	 * 取得指定雇员的所有出差信息
+	 * @param eid 雇员编号
+	 * @param currentPage 页
+	 * @param lineSize 行
+	 * @param column 列
+	 * @param keyWord 关键字
+	 * @return 返回如下数据内容；<br>
+	 * 1、key=allTravels、value=出差项；<br>
+	 * 2、key=allRecorders、value=雇员的个数
+	 */
+	@RequiresRoles(value= {"travel"},logical=Logical.OR)
+	@RequiresPermissions(value= {"travel:self"},logical=Logical.OR)
+	public Map<String,Object> listByEmp(String eid,long currentPage,int lineSize,String column,String keyWord);
 	
 }

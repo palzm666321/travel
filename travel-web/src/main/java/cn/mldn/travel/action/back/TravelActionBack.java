@@ -65,8 +65,10 @@ public class TravelActionBack extends AbstractBaseAction {
 	@RequiresUser
 	@RequiresRoles(value = {"travel"}, logical = Logical.OR)
 	@RequiresPermissions(value = {"travel:self"}, logical = Logical.OR)
-	public ModelAndView listEmp(HttpServletRequest request) {
+	public ModelAndView listByEmp(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView(super.getUrl("travel.emp.page"));
+		ActionSplitPageUtil aspu=new ActionSplitPageUtil(request, "申请标题:title", super.getUrl("travel.emp.page"));
+		mav.addAllObjects(this.travelServiceBack.listByEmp(super.getEid(), aspu.getCurrentPage(), aspu.getLineSize(),aspu.getColumn(),aspu.getKeyWord()));
 		return mav;
 	}
 
